@@ -1,5 +1,5 @@
 // Первая функция
-const getLength1 = (line, quantity) => (line.length <= quantity) ? true : false;
+const getLength1 = (line, quantity) => (line.length <= quantity);
 getLength1('проверяемая строка', 20);
 
 
@@ -32,7 +32,7 @@ const getExamination = (palindrome) => {
   for(let i = capitalLetters.length - 1;i >= 0;i--){
     line += capitalLetters[i];
   }
-  return (capitalLetters === line) ? true : false;
+  return (capitalLetters === line);
 };
 getExamination('Лёша на полке клопа нашёл ');
 
