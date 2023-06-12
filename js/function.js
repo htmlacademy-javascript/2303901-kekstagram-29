@@ -1,7 +1,5 @@
 // Первая функция
-const getLength1 = (line, quantity) => {
-  return (line.length <= quantity) ? true : false;
-}
+const getLength1 = (line, quantity) => (line.length <= quantity) ? true : false;
 getLength1('проверяемая строка', 20);
 
 
@@ -44,9 +42,9 @@ const getNumber = (string) => {
   let change = '';
   for(let i = 0;i <= string.length - 1;i++){
     if(!isNaN(string[i]) && string[i] !== ' '){
-      change += parseInt(string[i]);
+      change += parseInt(string[i], 10);
     }
   }
-  return parseInt(change)
+  return parseInt(change, 10);
 };
 getNumber('ECMAScript 2022');
