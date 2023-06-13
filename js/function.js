@@ -1,10 +1,10 @@
 // Первая функция
-const getLength1 = (line, quantity) => (line.length <= quantity);
+const getLength1 = (line, quantity) => return line.length >= quantity;
 getLength1('проверяемая строка', 20);
 
 
 // Вторая функция
-function getLength2 (line, quantity) {
+function getLength2(line, quantity){
   if(line.length >= quantity){
     return true;
   }
@@ -14,7 +14,7 @@ getLength2('проверяемая строка', 18);
 
 
 // Третья функция
-function getLength3 (line, quantity) {
+function getLength3(line, quantity){
   if(line.length <= quantity){
     return true;
   }
