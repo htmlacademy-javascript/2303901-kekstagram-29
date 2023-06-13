@@ -1,5 +1,5 @@
 // Первая функция
-const getLength1 = (line, quantity) => return line.length >= quantity;
+const getLength1 = (line, quantity) => (line.length <= quantity);
 getLength1('проверяемая строка', 20);
 
 
