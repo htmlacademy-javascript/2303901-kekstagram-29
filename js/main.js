@@ -23,31 +23,55 @@ const NAMES = [
   'Вероника',
 ];
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
+const PHOTO_COUNT = 25;
+
+const Likes = {
+  MIN: 15,
+  MAX: 200,
+};
+
+const PhotosAll = [];
+
+
+//рандомный номер
+const getRandomInteger = (upper, lower) => {
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
 
-const createPhotoDiscription = () => ({
-  id: '',
-  url: '',
-  discription: PHOTO_DISCRIPTION[getRandomInteger(0, PHOTO_DISCRIPTION.length - 1)],
-  likes: getRandomInteger(15, 200),
-  comments: {
-    id: '',
-    avatar: `img/avatar-${getRandomInteger(0, 6)}.svg`,
-    message:PHOTO_COMMENTS[getRandomInteger(0, PHOTO_COMMENTS.length - 1)],
-    name: NAMES[getRandomInteger(0, 5)],
-  },
+//создаю фото
+const addPhoto = (id) => ({
+  id: id,
+  url:`photos/${id}.jpg`,
+  discription:PHOTO_DISCRIPTION[getRandomInteger(0, PHOTO_DISCRIPTION.length - 1)],
+  likes: getRandomInteger(Likes.MIN, Likes.MAX),
+  comments: addComments(getRandomInteger(0, 30)),
 });
 
-const createArrays = Array.from({length: 25}, createPhotoDiscription);
+//создаю массив фото
+const addPhotos = () => {
+  for (let i = 1; i <= PHOTO_COUNT; i++) {
+    PhotosAll.push(addPhoto(i));
+  }
+};
 
-for (let i = 0;i <= createArrays.length - 1;i++){
-  createArrays[i].id = i + 1;
-  createArrays[i].url = `photos/${i + 1}.jpg`;
-  createArrays[i].comments.id = i + 1;
-}
+// создаю комменты
+let commentIdCounter = 1;
+const addComment = () => ({
+  id: commentIdCounter++,
+  avatar: `img/avatar-${getRandomInteger(0, 6)}.svg`,
+  message:PHOTO_COMMENTS[getRandomInteger(0, PHOTO_COMMENTS.length - 1)],
+  name: NAMES[getRandomInteger(0, 5)],
 
+});
+
+// создаю массив комментов
+const addComments = (count) => {
+  const comments = [];
+  for (let i = 0; i < count; i++) {
+    comments.push(addComment());
+  }
+  return comments;
+};
+
+addPhotos();
