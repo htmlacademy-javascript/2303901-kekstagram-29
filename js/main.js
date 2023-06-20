@@ -30,8 +30,6 @@ const Likes = {
   MAX: 200,
 };
 
-const PhotosAll = [];
-
 //рандомный номер
 const getRandomInteger = (upper, lower) => {
   const result = Math.random() * (upper - lower + 1) + lower;
@@ -44,8 +42,7 @@ const addComment = () => ({
   id: commentIdCounter++,
   avatar: `img/avatar-${getRandomInteger(0, 6)}.svg`,
   message:PHOTO_COMMENTS[getRandomInteger(0, PHOTO_COMMENTS.length - 1)],
-  name: NAMES[getRandomInteger(0, 5)],
-
+  name: NAMES[getRandomInteger(0, 5)]
 });
 
 // создаю массив комментов
@@ -56,6 +53,7 @@ const addComments = (count) => {
   }
   return comments;
 };
+
 //создаю фото
 const addPhoto = (id) => ({
   id: id,
@@ -67,9 +65,12 @@ const addPhoto = (id) => ({
 
 //создаю массив фото
 const addPhotos = () => {
+  const photosAll = [];
   for (let i = 1; i <= PHOTO_COUNT; i++) {
-    PhotosAll.push(addPhoto(i));
+    photosAll.push(addPhoto(i));
   }
+  return photosAll;
 };
 
 addPhotos();
+
