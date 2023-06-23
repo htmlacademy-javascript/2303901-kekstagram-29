@@ -1,1 +1,1 @@
-import './create-array-photos.js';
+import './util.js';
