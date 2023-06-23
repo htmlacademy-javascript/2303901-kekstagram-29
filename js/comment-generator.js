@@ -1,4 +1,4 @@
-import {getRandomInteger} from './universal-functions.js';
+import {getRandomInteger} from './util.js';
 
 const PHOTO_COMMENTS = [
   'Всё отлично!',

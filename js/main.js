@@ -1,1 +1,1 @@
-import './util.js';
+import './photo-generator.js';
