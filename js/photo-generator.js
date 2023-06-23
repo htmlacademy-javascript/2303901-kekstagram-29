@@ -36,4 +36,3 @@ const addPhotos = () => {
 };
 
 addPhotos();
-console.log(addPhotos())
