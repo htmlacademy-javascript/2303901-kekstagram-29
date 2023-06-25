@@ -15,7 +15,7 @@ const checkTime = (start, end, meet, time) => {
   const endWork = getMinutes(end);
   const startMeet = getMinutes(meet);
 
-  return endWork - startWork >= time && endWork - startMeet >= time && meet >= start
+  return endWork - startWork >= time && endWork - startMeet >= time && meet >= start;
 
 
 };
