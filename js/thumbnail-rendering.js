@@ -1,4 +1,6 @@
 import {addPhotos} from './photo-generator.js';
+const arrayPhotos = addPhotos();
+
 //поиск клона шаблона
 const THEMPLATE_PICTURE = document.querySelector('#picture').content;
 const THEMPLATE_PICTURE_TEG = THEMPLATE_PICTURE.querySelector('.picture');
@@ -32,5 +34,6 @@ const paintAllPictures = (valuePhoto) => {
 
   addToHtml.appendChild(fragmentPhoto);
 };
-paintAllPictures(addPhotos());
+paintAllPictures(arrayPhotos);
 
+export{arrayPhotos};

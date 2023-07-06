@@ -1,6 +1,6 @@
 
-import {addPhotos} from './photo-generator.js';
-const ARRAY_PHOTOS = addPhotos();
+import {arrayPhotos} from './thumbnail-rendering.js';
+
 
 //адресса картинок
 const BIG_PICTURE = document.querySelector('.big-picture');
@@ -53,29 +53,29 @@ const createBlockComment = ({avatar, message, name }) => {
   return oneComment;
 };
 
+// функция coбирающая коментарии
+const getAllComments = (coments) => {
+
+  const commentsToPhoto = document.querySelector('.social__comments');
+  const fragmentComments = document.createDocumentFragment();
+
+  //массив комментов
+  coments.forEach((comment) => {
+
+    fragmentComments.append(createBlockComment(comment));
+
+  });
+  commentsToPhoto.append(fragmentComments);
+};
+
 // функция получения коменнариев картинки
 const getInfoComment = (iterationPhoto) => {
-  const numberPhoto = iterationPhoto;
-  const comments = ARRAY_PHOTOS[numberPhoto].comments;
+
+  const comments = arrayPhotos[iterationPhoto].comments;
   const allComment = document.querySelector('.social__comments');
   allComment.innerHTML = '';
 
-  // функция coбирающая коментарии
-  const getAllComments = (coments) => {
-
-    const commentsToPhoto = document.querySelector('.social__comments');
-    const fragmentComments = document.createDocumentFragment();
-
-    //массив комментов
-    coments.forEach((comment) => {
-
-      fragmentComments.append(createBlockComment(comment));
-
-    });
-    commentsToPhoto.append(fragmentComments);
-  };
   getAllComments(comments);
-
 };
 
 export {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment};

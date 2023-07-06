@@ -1,4 +1,4 @@
-import {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment} from './aad-comments.js';
+import {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment, } from './aad-comments.js';
 
 // функция открывающая большую картинку
 const onChangeBigPicture = () => {
@@ -7,9 +7,9 @@ const onChangeBigPicture = () => {
 
     clickPicture.addEventListener('click', () => {
 
+
       createContentBigPhoto(clickPicture);
       getInfoComment(iterationPhoto);
-
     });
   });
 };
@@ -28,16 +28,17 @@ const onCloseBigPhoto = () => {
 };
 onCloseBigPhoto();
 
-const сloseBigPhotoEsc = () =>{
+const onCloseBigPhotoEsc = () =>{
 
   document.addEventListener('keydown', (evt) => {
     evt.preventDefault();
     if(evt.key === 'Escape'){
       const modalOpen = document.querySelector('body');
 
+
       modalOpen.classList.remove('modal-open');
       BIG_PICTURE.classList.add('hidden');
     }
   });
 };
-сloseBigPhotoEsc();
+onCloseBigPhotoEsc();
