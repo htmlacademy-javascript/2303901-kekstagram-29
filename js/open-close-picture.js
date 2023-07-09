@@ -1,5 +1,7 @@
-import {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment, closeCountComments} from './aad-comments.js';
+import {BIG_PICTURE, createContentBigPhoto, getInfoComment, closeCountComments} from './aad-comments.js';
+
 const COMMENTS_COUNTER_VALUES = 0;
+const SMALL_PICTURES = document.querySelectorAll('.picture');
 
 // функция открывающая большую картинку
 const onChangeBigPicture = () => {
@@ -8,7 +10,6 @@ const onChangeBigPicture = () => {
 
     clickPicture.addEventListener('click', () => {
 
-
       createContentBigPhoto(clickPicture);
       getInfoComment(iterationPhoto);
 
@@ -16,6 +17,7 @@ const onChangeBigPicture = () => {
   });
 };
 onChangeBigPicture();
+
 
 //функция закрывающая большую картинку
 const onCloseBigPhoto = () => {
@@ -30,6 +32,7 @@ const onCloseBigPhoto = () => {
   });
 };
 onCloseBigPhoto();
+
 
 const onCloseBigPhotoEsc = () =>{
 
