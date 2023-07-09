@@ -1,14 +1,15 @@
 
 import {arrayPhotos} from './thumbnail-rendering.js';
 
-
 //адресса картинок
 const BIG_PICTURE = document.querySelector('.big-picture');
 const SMALL_PICTURES = document.querySelectorAll('.picture');
+const START_INDEX_COMMENTS = 0;
+const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
 
 // функция заполняющая большую картинку описаниями из маленькой картинки
 const createContentBigPhoto = (clickPicture) => {
-
+console.log(clickPicture)
   const datasSmallPictures = clickPicture.querySelector('.picture__img');
   const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
   const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
@@ -53,29 +54,94 @@ const createBlockComment = ({avatar, message, name }) => {
   return oneComment;
 };
 
+/*
+let count = 9;
+//функция добовляющая 5 комментариев
+const loadFiveComments = () => {
+  const commentsWithHidden = document.querySelectorAll('.social__comment');
+
+  for (let i = 0; i < commentsWithHidden.length ; i++){
+
+    if(i <= count){
+      commentsWithHidden[i].classList.remove('hidden');
+
+    }if(commentsWithHidden.length === i){
+
+      return;
+    }
+  }
+  count += 5;
+
+};
+*/
+
 // функция coбирающая коментарии
-const getAllComments = (coments) => {
+const getAllComments = (comments) => {
 
   const commentsToPhoto = document.querySelector('.social__comments');
   const fragmentComments = document.createDocumentFragment();
 
   //массив комментов
-  coments.forEach((comment) => {
+  comments.forEach((comment) => {
 
     fragmentComments.append(createBlockComment(comment));
 
   });
+
   commentsToPhoto.append(fragmentComments);
 };
 
-// функция получения коменнариев картинки
-const getInfoComment = (iterationPhoto) => {
+//функция отрисовки коментарие порционно
+let countShowComments = 0;
+console.log(countShowComments)
+const copyArrayComents = (comment, iterationPhoto) => {
 
-  const comments = arrayPhotos[iterationPhoto].comments;
   const allComment = document.querySelector('.social__comments');
   allComment.innerHTML = '';
 
-  getAllComments(comments);
+  countShowComments += 5;
+  console.log(countShowComments);
+
+  const listenerButtonCOmments = (evt) => {
+    evt.preventDefault();
+    const comments = arrayPhotos[iterationPhoto].comments;
+    copyArrayComents(comments, iterationPhoto);
+    BUTTON_ADD_COMMENTS.removeEventListener('click', listenerButtonCOmments);
+
+  };
+
+  BUTTON_ADD_COMMENTS.addEventListener('click', listenerButtonCOmments);
+  //if(comment.length - 1 <= countShowComments){
+  // BUTTON_ADD_COMMENTS.removeEventListener('click', listenerButtonCOmments);
+  //}
+
+
+  getAllComments(comment.slice(START_INDEX_COMMENTS, countShowComments));
 };
 
-export {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment};
+//сброс счетчика и обработчика событий для комментариев
+const closeCountComments = (resetCountComment) => {
+
+  //BUTTON_ADD_COMMENTS.removeEventListener('click', onClickAddComments);
+  countShowComments = resetCountComment;
+  console.log(countShowComments);
+};
+
+//функция получения коменнариев картинки
+const getInfoComment = (iterationPhoto) => {
+  const allComment = document.querySelector('.social__comments');
+  allComment.innerHTML = '';
+
+  const comments = arrayPhotos[iterationPhoto].comments;
+
+  copyArrayComents(comments, iterationPhoto);
+
+
+
+
+
+
+};
+
+
+export {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment, closeCountComments,};

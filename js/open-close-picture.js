@@ -1,4 +1,5 @@
-import {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment, } from './aad-comments.js';
+import {BIG_PICTURE,SMALL_PICTURES, createContentBigPhoto, getInfoComment, closeCountComments} from './aad-comments.js';
+const COMMENTS_COUNTER_VALUES = 0;
 
 // функция открывающая большую картинку
 const onChangeBigPicture = () => {
@@ -10,6 +11,7 @@ const onChangeBigPicture = () => {
 
       createContentBigPhoto(clickPicture);
       getInfoComment(iterationPhoto);
+
     });
   });
 };
@@ -22,6 +24,7 @@ const onCloseBigPhoto = () => {
   buttonCloseBigPicture.addEventListener('click', () => {
     const modalOpen = document.querySelector('body');
 
+    closeCountComments(COMMENTS_COUNTER_VALUES);
     modalOpen.classList.remove('modal-open');
     BIG_PICTURE.classList.add('hidden');
   });
@@ -35,10 +38,11 @@ const onCloseBigPhotoEsc = () =>{
     if(evt.key === 'Escape'){
       const modalOpen = document.querySelector('body');
 
-
+      closeCountComments(COMMENTS_COUNTER_VALUES);
       modalOpen.classList.remove('modal-open');
       BIG_PICTURE.classList.add('hidden');
     }
   });
 };
 onCloseBigPhotoEsc();
+
