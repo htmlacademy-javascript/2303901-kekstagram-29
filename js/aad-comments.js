@@ -17,7 +17,6 @@ const createContentBigPhoto = ({discription, url, likes, comments,id}) => {
   const discriptionBigPhoto = BIG_PICTURE.querySelector('.social__caption');
   const modalOpen = document.querySelector('body');
 
-
   modalOpen.classList.add('modal-open');
   BIG_PICTURE.classList.remove('hidden');
   datasBigPictures.src = url;
@@ -101,4 +100,5 @@ export {
   closeCountComments,
   countShowComments,
   showFiveComments,
-  copyArrayPhoto};
+  copyArrayPhoto
+};

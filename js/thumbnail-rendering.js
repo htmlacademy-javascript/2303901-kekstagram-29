@@ -1,4 +1,5 @@
 import {addPhotos} from './photo-generator.js';
+
 const arrayPhotos = addPhotos();
 
 //функция копирующая массив фото
@@ -22,7 +23,6 @@ const createBlockPhoto = ({url, discription, likes, comments, id}) => {
   pictureLikes.textContent = likes;
   pictureComments.textContent = comments.length;
 
-
   return copyTemplateTeg;
 };
 
@@ -41,6 +41,5 @@ const paintAllPictures = (valuePhoto) => {
   addToHtml.appendChild(fragmentPhoto);
 };
 paintAllPictures(arrayPhotos);
-
 
 export{getcopyArrayPhoto};

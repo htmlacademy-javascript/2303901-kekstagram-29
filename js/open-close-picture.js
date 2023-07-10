@@ -32,8 +32,6 @@ const onShowBigPicture = () => {
     });
   }
 };
-onShowBigPicture();
-
 
 const onShowMoreComments = () => {
   const buttonShowComments = document.querySelector('.comments-loader');
@@ -51,14 +49,12 @@ const onShowMoreComments = () => {
     commentsCountElement.textContent = `${showingComments.length} из ${copyArrayPhoto[addButtonShowComments.id - 1].comments.length} комментариев`;
     commentCountElement.appendChild(commentsCountElement);
 
-
     if(showingComments.length >= copyArrayPhoto[addButtonShowComments.id - 1].comments.length){
 
       BUTTON_ADD_COMMENTS.classList.add('hidden');
     }
   });
 };
-onShowMoreComments();
 
 //функция закрывающая большую картинку
 const onCloseBigPhoto = () => {
@@ -83,5 +79,5 @@ const onCloseBigPhoto = () => {
     }
   });
 };
-onCloseBigPhoto();
 
+export {onShowBigPicture, onShowMoreComments, onCloseBigPhoto};

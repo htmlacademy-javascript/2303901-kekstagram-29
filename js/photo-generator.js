@@ -44,5 +44,4 @@ const addPhotos = () => {
   return photosAll;
 };
 
-
 export {addPhotos};
