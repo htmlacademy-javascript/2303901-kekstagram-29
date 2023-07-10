@@ -1,43 +1,40 @@
 
 import {getcopyArrayPhoto} from './thumbnail-rendering.js';
 
-
-
-
 //адресса картинок
 const BIG_PICTURE = document.querySelector('.big-picture');
-
+const ALL_COMENTS_FOR_BIG_PICTURE = document.querySelector('.social__comments');
 const START_INDEX_COMMENTS = 0;
 const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
 const copyArrayPhoto = getcopyArrayPhoto();
 
 // функция заполняющая большую картинку описаниями из маленькой картинки
-const createContentBigPhoto = (clickPicture) => {
+const createContentBigPhoto = ({discription, url, likes, comments,id}) => {
 
-  const datasSmallPictures = clickPicture.querySelector('.picture__img');
   const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
   const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
-  const likesSmallPicture = clickPicture.querySelector('.picture__likes');
   const commentsBigPicture = BIG_PICTURE.querySelector('.comments-count');
-  const commentsSmallPicture = clickPicture.querySelector('.picture__comments');
+  const avatarCommentator = BIG_PICTURE.querySelector('.social__header').querySelector('.social__picture');
   const discriptionBigPhoto = BIG_PICTURE.querySelector('.social__caption');
   const modalOpen = document.querySelector('body');
 
   modalOpen.classList.add('modal-open');
   BIG_PICTURE.classList.remove('hidden');
-  datasBigPictures.src = datasSmallPictures.src;
-  discriptionBigPhoto.textContent = datasSmallPictures.alt;
-  likesBigPicture.textContent = likesSmallPicture.textContent;
-  commentsBigPicture.textContent = commentsSmallPicture.textContent;
+  datasBigPictures.src = url;
+  datasBigPictures.alt = discription;
+  avatarCommentator.src = url;
+  discriptionBigPhoto.textContent = discription;
+  datasBigPictures.textContent = likes;
+  likesBigPicture.textContent = likes;
+  datasBigPictures.id = id;
+  commentsBigPicture.textContent = comments.length;
 
 };
-
-//функция создающая клон коментатора
 
 //функция по созданию коментариев пользователей
 const createBlockComment = ({avatar, message, name }) => {
 
-  const avatarPhotograph = BIG_PICTURE.querySelector('.social__picture');
+  const avatarPhotograph = document.querySelector('.social__picture');
   avatarPhotograph.src = avatar;
 
   const oneComment = document.createElement('li');
@@ -70,52 +67,41 @@ const getAllComments = (comments) => {
     fragmentComments.append(createBlockComment(comment));
 
   });
-
   commentsToPhoto.append(fragmentComments);
 };
 
-//функция отрисовки коментарие порционно
-let countShowComments = 5;
 
+let countShowComments = 5;
 //сброс счетчика и обработчика событий для комментариев
 const closeCountComments = (resetCountComment) => {
-  //BUTTON_ADD_COMMENTS.removeEventListener('click', onClickAddComments);
+
   countShowComments = resetCountComment;
 };
 
+//показ первых пяти комментариев
+const showFiveComments = (idComment) => {
 
+  const comments = copyArrayPhoto[+idComment.id - 1].comments;
+  ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
 
-const getIterationForArrayComments = (iteratioArrayComments) => {
-
-  const targetIdComments = +iteratioArrayComments.id - 1;
-
-  const allComment = document.querySelector('.social__comments');
-  const comments = copyArrayPhoto[targetIdComments].comments;
-  allComment.innerHTML = '';
-
-
-  const listenerButtonComments = (evt) => {
-    evt.preventDefault();
-    countShowComments += 5;
-    allComment.innerHTML = '';
-
-    getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
-  };
-
+  createContentBigPhoto(copyArrayPhoto[+idComment.id - 1]);
   getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
-  BUTTON_ADD_COMMENTS.addEventListener('click', listenerButtonComments);
-
 };
 
 
-//функция получения коменнариев картинки
-const getInfoComment = (iterationPhoto) => {
+//показ следующих пяти комментариев
+const showToNewFiveComments = (iterationPhoto) => {
 
-  const allComment = document.querySelector('.social__comments');
-  const comments = copyArrayPhoto[iterationPhoto].comments;
-  allComment.innerHTML = '';
-  getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
+  const showingComments = document.querySelectorAll('.social__comment');
 
+  countShowComments += 5;
+  ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
+  getAllComments(iterationPhoto.slice(START_INDEX_COMMENTS, countShowComments));
+
+  if(showingComments.length >= iterationPhoto.length){
+
+    BUTTON_ADD_COMMENTS.classList.add('hidden');
+  }
 };
 
-export {BIG_PICTURE, createContentBigPhoto, getInfoComment, closeCountComments, getIterationForArrayComments,countShowComments};
+export {BIG_PICTURE, createContentBigPhoto, BUTTON_ADD_COMMENTS, showToNewFiveComments, closeCountComments, /*getIterationForArrayComments,*/ countShowComments,showFiveComments,copyArrayPhoto};

@@ -15,8 +15,6 @@ const createBlockPhoto = ({url, discription, likes, comments, id}) => {
   const pictureImg = copyTemplateTeg.querySelector('.picture__img');
   const pictureComments = copyTemplateTeg.querySelector('.picture__comments');
   const pictureLikes = copyTemplateTeg.querySelector('.picture__likes');
-  const pictureId = pictureImg.querySelector('.id');
-  console.log(pictureId)
 
   pictureImg.id = id;
   pictureImg.src = url;
@@ -36,13 +34,13 @@ const paintAllPictures = (valuePhoto) => {
   const fragmentPhoto = document.createDocumentFragment();
 
   valuePhoto.forEach((elementPhoto) => {
+
     fragmentPhoto.append(createBlockPhoto(elementPhoto));
-    //console.log(elementPhoto)
   });
 
   addToHtml.appendChild(fragmentPhoto);
 };
 paintAllPictures(arrayPhotos);
-console.log(paintAllPictures(arrayPhotos))
+
 
 export{getcopyArrayPhoto};
