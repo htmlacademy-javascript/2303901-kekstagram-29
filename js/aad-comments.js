@@ -14,28 +14,24 @@ const createContentBigPhoto = ({discription, url, likes, comments,id}) => {
   const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
   const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
   const commentsBigPicture = BIG_PICTURE.querySelector('.comments-count');
-  const avatarCommentator = BIG_PICTURE.querySelector('.social__header').querySelector('.social__picture');
   const discriptionBigPhoto = BIG_PICTURE.querySelector('.social__caption');
   const modalOpen = document.querySelector('body');
+
 
   modalOpen.classList.add('modal-open');
   BIG_PICTURE.classList.remove('hidden');
   datasBigPictures.src = url;
   datasBigPictures.alt = discription;
-  avatarCommentator.src = url;
   discriptionBigPhoto.textContent = discription;
   datasBigPictures.textContent = likes;
   likesBigPicture.textContent = likes;
   datasBigPictures.id = id;
   commentsBigPicture.textContent = comments.length;
-
 };
 
 //функция по созданию коментариев пользователей
-const createBlockComment = ({avatar, message, name }) => {
+const createBlockComment = ({avatar, message, name}) => {
 
-  const avatarPhotograph = document.querySelector('.social__picture');
-  avatarPhotograph.src = avatar;
 
   const oneComment = document.createElement('li');
   oneComment.classList.add('social__comment');
@@ -92,16 +88,17 @@ const showFiveComments = (idComment) => {
 //показ следующих пяти комментариев
 const showToNewFiveComments = (iterationPhoto) => {
 
-  const showingComments = document.querySelectorAll('.social__comment');
-
   countShowComments += 5;
   ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
   getAllComments(iterationPhoto.slice(START_INDEX_COMMENTS, countShowComments));
-
-  if(showingComments.length >= iterationPhoto.length){
-
-    BUTTON_ADD_COMMENTS.classList.add('hidden');
-  }
 };
 
-export {BIG_PICTURE, createContentBigPhoto, BUTTON_ADD_COMMENTS, showToNewFiveComments, closeCountComments, /*getIterationForArrayComments,*/ countShowComments,showFiveComments,copyArrayPhoto};
+export {
+  BIG_PICTURE,
+  createContentBigPhoto,
+  BUTTON_ADD_COMMENTS,
+  showToNewFiveComments,
+  closeCountComments,
+  countShowComments,
+  showFiveComments,
+  copyArrayPhoto};
