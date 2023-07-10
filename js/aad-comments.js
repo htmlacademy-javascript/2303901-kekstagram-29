@@ -1,6 +1,9 @@
 
 import {getcopyArrayPhoto} from './thumbnail-rendering.js';
 
+
+
+
 //адресса картинок
 const BIG_PICTURE = document.querySelector('.big-picture');
 
@@ -80,11 +83,14 @@ const closeCountComments = (resetCountComment) => {
   countShowComments = resetCountComment;
 };
 
-//функция получения коменнариев картинки
-const getInfoComment = (iterationPhoto) => {
+
+
+const getIterationForArrayComments = (iteratioArrayComments) => {
+
+  const targetIdComments = +iteratioArrayComments.id - 1;
 
   const allComment = document.querySelector('.social__comments');
-  const comments = copyArrayPhoto[iterationPhoto].comments;
+  const comments = copyArrayPhoto[targetIdComments].comments;
   allComment.innerHTML = '';
 
 
@@ -98,6 +104,18 @@ const getInfoComment = (iterationPhoto) => {
 
   getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
   BUTTON_ADD_COMMENTS.addEventListener('click', listenerButtonComments);
+
 };
 
-export {BIG_PICTURE, createContentBigPhoto, getInfoComment, closeCountComments};
+
+//функция получения коменнариев картинки
+const getInfoComment = (iterationPhoto) => {
+
+  const allComment = document.querySelector('.social__comments');
+  const comments = copyArrayPhoto[iterationPhoto].comments;
+  allComment.innerHTML = '';
+  getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
+
+};
+
+export {BIG_PICTURE, createContentBigPhoto, getInfoComment, closeCountComments, getIterationForArrayComments,countShowComments};

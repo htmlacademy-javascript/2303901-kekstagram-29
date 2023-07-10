@@ -9,17 +9,21 @@ const THEMPLATE_PICTURE = document.querySelector('#picture').content;
 const THEMPLATE_PICTURE_TEG = THEMPLATE_PICTURE.querySelector('.picture');
 
 //функция создания элемента разметки
-const createBlockPhoto = ({url,discription,likes,comments }) => {
+const createBlockPhoto = ({url, discription, likes, comments, id}) => {
 
   const copyTemplateTeg = THEMPLATE_PICTURE_TEG.cloneNode(true);
   const pictureImg = copyTemplateTeg.querySelector('.picture__img');
   const pictureComments = copyTemplateTeg.querySelector('.picture__comments');
   const pictureLikes = copyTemplateTeg.querySelector('.picture__likes');
+  const pictureId = pictureImg.querySelector('.id');
+  console.log(pictureId)
 
+  pictureImg.id = id;
   pictureImg.src = url;
   pictureImg.alt = discription;
   pictureLikes.textContent = likes;
   pictureComments.textContent = comments.length;
+
 
   return copyTemplateTeg;
 };
@@ -33,10 +37,12 @@ const paintAllPictures = (valuePhoto) => {
 
   valuePhoto.forEach((elementPhoto) => {
     fragmentPhoto.append(createBlockPhoto(elementPhoto));
+    //console.log(elementPhoto)
   });
 
   addToHtml.appendChild(fragmentPhoto);
 };
 paintAllPictures(arrayPhotos);
+console.log(paintAllPictures(arrayPhotos))
 
 export{getcopyArrayPhoto};

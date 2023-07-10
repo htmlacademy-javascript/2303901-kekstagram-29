@@ -1,20 +1,22 @@
-import {BIG_PICTURE, createContentBigPhoto, getInfoComment, closeCountComments} from './aad-comments.js';
+import {BIG_PICTURE, createContentBigPhoto, getInfoComment, closeCountComments, getIterationForArrayComments} from './aad-comments.js';
 
 const COMMENTS_COUNTER_VALUES = 0;
 const SMALL_PICTURES = document.querySelectorAll('.picture');
+
 
 // функция открывающая большую картинку
 const onChangeBigPicture = () => {
 
   SMALL_PICTURES.forEach((clickPicture, iterationPhoto) => {
 
-    clickPicture.addEventListener('click', () => {
+    clickPicture.addEventListener('click', (evt) => {
 
+      getIterationForArrayComments(evt.target);
       createContentBigPhoto(clickPicture);
       getInfoComment(iterationPhoto);
-
     });
   });
+
 };
 onChangeBigPicture();
 
@@ -25,6 +27,7 @@ const onCloseBigPhoto = () => {
 
   buttonCloseBigPicture.addEventListener('click', () => {
     const modalOpen = document.querySelector('body');
+
 
     closeCountComments(COMMENTS_COUNTER_VALUES);
     modalOpen.classList.remove('modal-open');
@@ -49,3 +52,4 @@ const onCloseBigPhotoEsc = () =>{
 };
 onCloseBigPhotoEsc();
 
+export {getIterationForArrayComments};
