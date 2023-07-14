@@ -70,8 +70,9 @@ const onCloseBigPhoto = () => {
   });
 
   document.addEventListener('keydown', (evt) => {
-    evt.preventDefault();
+
     if(evt.key === 'Escape'){
+      evt.preventDefault();
       BUTTON_ADD_COMMENTS.classList.remove('hidden');
       closeCountComments(COMMENTS_COUNTER_VALUES);
       modalOpen.classList.remove('modal-open');
