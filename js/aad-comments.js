@@ -8,7 +8,6 @@ const ALL_COMENTS_FOR_BIG_PICTURE = document.querySelector('.social__comments');
 const START_INDEX_COMMENTS = 0;
 
 
-
 // функция заполняющая большую картинку описаниями из маленькой картинки
 const createContentBigPhoto = ({discription, url, likes, comments,id}) => {
 
