@@ -1,11 +1,12 @@
 import {
-  BIG_PICTURE,
   showToNewFiveComments,
   closeCountComments,
   showFiveComments,
 } from './aad-comments.js';
 
 import {copyArrayPhoto} from './main.js';
+
+const BIG_PICTURE = document.querySelector('.big-picture');
 
 const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
 const COMMENTS_COUNTER_VALUES = 5;

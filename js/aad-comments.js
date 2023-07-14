@@ -93,7 +93,6 @@ const showToNewFiveComments = (iterationPhoto) => {
 };
 
 export {
-  BIG_PICTURE,
   createContentBigPhoto,
   showToNewFiveComments,
   closeCountComments,
