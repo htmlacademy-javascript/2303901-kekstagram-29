@@ -1,12 +1,13 @@
 import {
   BIG_PICTURE,
-  BUTTON_ADD_COMMENTS,
   showToNewFiveComments,
   closeCountComments,
   showFiveComments,
-  copyArrayPhoto
 } from './aad-comments.js';
 
+import {copyArrayPhoto} from './main.js';
+
+const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
 const COMMENTS_COUNTER_VALUES = 5;
 
 const addButtonShowComments = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
@@ -23,9 +24,9 @@ const onShowBigPicture = () => {
       const commentsCountElement = document.createElement('span');
       countComments.textContent = '';
       commentsCountElement.classList.add('comments-count');
-      commentsCountElement.textContent = `${showingComments.length} из ${copyArrayPhoto[addButtonShowComments.id - 1].comments.length} комментариев`;
+      commentsCountElement.textContent = `${showingComments.length} из ${copyArrayPhoto.copy[addButtonShowComments.id - 1].comments.length} комментариев`;
       commentCountElement.appendChild(commentsCountElement);
-      if(showingComments.length >= copyArrayPhoto[addButtonShowComments.id - 1].comments.length){
+      if(showingComments.length >= copyArrayPhoto.copy[addButtonShowComments.id - 1].comments.length){
 
         BUTTON_ADD_COMMENTS.classList.add('hidden');
       }
@@ -38,7 +39,7 @@ const onShowMoreComments = () => {
 
   buttonShowComments.addEventListener('click', (evt) => {
     evt.preventDefault();
-    showToNewFiveComments(copyArrayPhoto[addButtonShowComments.id - 1].comments);
+    showToNewFiveComments(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
 
     const showingComments = document.querySelectorAll('.social__comment');
     const countComments = document.querySelector('.social__comment-count');
@@ -46,10 +47,10 @@ const onShowMoreComments = () => {
     const commentsCountElement = document.createElement('span');
     countComments.textContent = '';
     commentsCountElement.classList.add('comments-count');
-    commentsCountElement.textContent = `${showingComments.length} из ${copyArrayPhoto[addButtonShowComments.id - 1].comments.length} комментариев`;
+    commentsCountElement.textContent = `${showingComments.length} из ${copyArrayPhoto.copy[addButtonShowComments.id - 1].comments.length} комментариев`;
     commentCountElement.appendChild(commentsCountElement);
 
-    if(showingComments.length >= copyArrayPhoto[addButtonShowComments.id - 1].comments.length){
+    if(showingComments.length >= copyArrayPhoto.copy[addButtonShowComments.id - 1].comments.length){
 
       BUTTON_ADD_COMMENTS.classList.add('hidden');
     }

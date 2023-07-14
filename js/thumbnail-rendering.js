@@ -1,10 +1,3 @@
-import {addPhotos} from './photo-generator.js';
-
-const arrayPhotos = addPhotos();
-
-//функция копирующая массив фото
-const getcopyArrayPhoto = () => arrayPhotos;
-
 //поиск клона шаблона
 const THEMPLATE_PICTURE = document.querySelector('#picture').content;
 const THEMPLATE_PICTURE_TEG = THEMPLATE_PICTURE.querySelector('.picture');
@@ -40,6 +33,5 @@ const paintAllPictures = (valuePhoto) => {
 
   addToHtml.appendChild(fragmentPhoto);
 };
-paintAllPictures(arrayPhotos);
 
-export{getcopyArrayPhoto};
+export{paintAllPictures};

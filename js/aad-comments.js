@@ -1,12 +1,13 @@
 
-import {getcopyArrayPhoto} from './thumbnail-rendering.js';
+
+import {copyArrayPhoto} from './main.js';
 
 //адресса картинок
 const BIG_PICTURE = document.querySelector('.big-picture');
 const ALL_COMENTS_FOR_BIG_PICTURE = document.querySelector('.social__comments');
 const START_INDEX_COMMENTS = 0;
-const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
-const copyArrayPhoto = getcopyArrayPhoto();
+
+
 
 // функция заполняющая большую картинку описаниями из маленькой картинки
 const createContentBigPhoto = ({discription, url, likes, comments,id}) => {
@@ -76,13 +77,12 @@ const closeCountComments = (resetCountComment) => {
 //показ первых пяти комментариев
 const showFiveComments = (idComment) => {
 
-  const comments = copyArrayPhoto[+idComment.id - 1].comments;
+  const comments = copyArrayPhoto.copy[+idComment.id - 1].comments;
   ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
 
-  createContentBigPhoto(copyArrayPhoto[+idComment.id - 1]);
+  createContentBigPhoto(copyArrayPhoto.copy[+idComment.id - 1]);
   getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
 };
-
 
 //показ следующих пяти комментариев
 const showToNewFiveComments = (iterationPhoto) => {
@@ -95,10 +95,7 @@ const showToNewFiveComments = (iterationPhoto) => {
 export {
   BIG_PICTURE,
   createContentBigPhoto,
-  BUTTON_ADD_COMMENTS,
   showToNewFiveComments,
   closeCountComments,
-  countShowComments,
   showFiveComments,
-  copyArrayPhoto
 };
