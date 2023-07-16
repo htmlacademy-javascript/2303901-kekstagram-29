@@ -2,15 +2,13 @@ import {onShowBigPicture, onShowMoreComments, onCloseBigPhoto} from './open-clos
 import './form-create-picture.js';
 import {addPhotos} from './photo-generator.js';
 import {paintAllPictures} from './thumbnail-rendering.js';
+import './slider-change-view-photo.js';
 
 const copyArrayPhoto = {
   copy: addPhotos()
 };
 
-
 paintAllPictures(copyArrayPhoto.copy);
-onShowBigPicture();
-onShowMoreComments();
+onShowBigPicture(copyArrayPhoto);
+onShowMoreComments(copyArrayPhoto);
 onCloseBigPhoto();
-
-export {copyArrayPhoto,};

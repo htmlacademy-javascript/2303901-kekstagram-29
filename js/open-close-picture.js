@@ -4,21 +4,19 @@ import {
   showFiveComments,
 } from './aad-comments.js';
 
-import {copyArrayPhoto} from './main.js';
-
 const BIG_PICTURE = document.querySelector('.big-picture');
-
+//const slider = document.querySelector('.img-upload__effect-level');
 const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
 const COMMENTS_COUNTER_VALUES = 5;
 
 const addButtonShowComments = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
 
-const onShowBigPicture = () => {
+const onShowBigPicture = (copyArrayPhoto) => {
   const SMALL_PICTURES = document.querySelectorAll('.picture');
   for(const clickToSmallPhoto of SMALL_PICTURES) {
     clickToSmallPhoto.addEventListener('click', (evt) => {
       evt.preventDefault();
-      showFiveComments(evt.target);
+      showFiveComments(copyArrayPhoto ,evt.target);
       const showingComments = document.querySelectorAll('.social__comment');
       const countComments = document.querySelector('.social__comment-count');
       const commentCountElement = document.querySelector('.social__comment-count');
@@ -35,7 +33,7 @@ const onShowBigPicture = () => {
   }
 };
 
-const onShowMoreComments = () => {
+const onShowMoreComments = (copyArrayPhoto) => {
   const buttonShowComments = document.querySelector('.comments-loader');
 
   buttonShowComments.addEventListener('click', (evt) => {
@@ -64,6 +62,7 @@ const onCloseBigPhoto = () => {
   const modalOpen = document.querySelector('body');
   buttonCloseBigPicture.addEventListener('click', (evt) => {
     evt.preventDefault();
+
 
     BUTTON_ADD_COMMENTS.classList.remove('hidden');
     closeCountComments(COMMENTS_COUNTER_VALUES);

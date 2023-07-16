@@ -1,7 +1,3 @@
-
-
-import {copyArrayPhoto} from './main.js';
-
 //адресса картинок
 const BIG_PICTURE = document.querySelector('.big-picture');
 const ALL_COMENTS_FOR_BIG_PICTURE = document.querySelector('.social__comments');
@@ -9,7 +5,7 @@ const START_INDEX_COMMENTS = 0;
 
 
 // функция заполняющая большую картинку описаниями из маленькой картинки
-const createContentBigPhoto = ({discription, url, likes, comments,id}) => {
+const fillBigPhotoDiscriptions = ({discription, url, likes, comments,id}) => {
 
   const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
   const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
@@ -74,12 +70,12 @@ const closeCountComments = (resetCountComment) => {
 };
 
 //показ первых пяти комментариев
-const showFiveComments = (idComment) => {
+const showFiveComments = (copyArrayPhoto, idComment) => {
 
   const comments = copyArrayPhoto.copy[+idComment.id - 1].comments;
   ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
 
-  createContentBigPhoto(copyArrayPhoto.copy[+idComment.id - 1]);
+  fillBigPhotoDiscriptions(copyArrayPhoto.copy[+idComment.id - 1]);
   getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
 };
 
@@ -92,7 +88,6 @@ const showToNewFiveComments = (iterationPhoto) => {
 };
 
 export {
-  createContentBigPhoto,
   showToNewFiveComments,
   closeCountComments,
   showFiveComments,
