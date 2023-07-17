@@ -70,13 +70,14 @@ const closeCountComments = (resetCountComment) => {
 };
 
 //показ первых пяти комментариев
-const showFiveComments = (copyArrayPhoto, idComment) => {
+const showFiveComments = (commentsToPhoto) => {
 
-  const comments = copyArrayPhoto.copy[+idComment.id - 1].comments;
+  const commentsShow = commentsToPhoto.comments;
   ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
 
-  fillBigPhotoDiscriptions(copyArrayPhoto.copy[+idComment.id - 1]);
-  getAllComments(comments.slice(START_INDEX_COMMENTS, countShowComments));
+  fillBigPhotoDiscriptions(commentsToPhoto);
+  getAllComments(commentsShow.slice(START_INDEX_COMMENTS, countShowComments));
+  //console.log(commentsToPhoto.comments)
 };
 
 //показ следующих пяти комментариев

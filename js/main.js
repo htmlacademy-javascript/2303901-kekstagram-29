@@ -1,4 +1,4 @@
-import {onShowBigPicture, onShowMoreComments, onCloseBigPhoto} from './open-close-picture.js';
+import {onShowBigPicture, onCloseBigPhoto} from './open-close-picture.js';
 import './form-create-picture.js';
 import {addPhotos} from './photo-generator.js';
 import {paintAllPictures} from './thumbnail-rendering.js';
@@ -11,5 +11,4 @@ const copyArrayPhoto = {
 
 paintAllPictures(copyArrayPhoto.copy);
 onShowBigPicture(copyArrayPhoto);
-onShowMoreComments(copyArrayPhoto);
 onCloseBigPhoto();
