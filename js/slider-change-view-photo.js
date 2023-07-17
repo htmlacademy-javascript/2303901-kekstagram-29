@@ -54,75 +54,65 @@ const filters = {
     default: '',
     unit: '',
     min: 0,
-    max: 125,
-    step: 25
+    max: 0,
+    step: 0
+  }
+};
+
+const updateSlider = (value) => {
+  const selectedFilter = filters[value];
+
+  slider.noUiSlider.updateOptions({
+    name: selectedFilter.name,
+    start: selectedFilter.start,
+    step: selectedFilter.step,
+    range: {
+      'min': selectedFilter.min,
+      'max': selectedFilter.max
+    }
+  });
+};
+
+const updateFilterStyle = (value) => {
+  if (value === 'none') {
+    slider.classList.add('hidden');
+    changeViewPicture.style.filter = 'none';
+  } else {
+    slider.classList.remove('hidden');
+    const selectedFilter = filters[value];
+    const filterScaleValue = `${selectedFilter.name}(${selectedFilter.default}${selectedFilter.unit})`;
+    changeViewPicture.style.filter = filterScaleValue;
   }
 };
 
 const getElementStyle = () => {
-  let targetValue = 'none'; // Declare a variable to store the target value
-
-  // Get the 'min', 'max', and 'step' values for the selected filter from the dictionary
-  let selectedFilterMin = filters[targetValue].min;
-  let selectedFilterMax = filters[targetValue].max;
-  let selectedFilterStep = filters[targetValue].step;
-  let selectedStart = filters[targetValue].start;
-  let selectedFilterValue = filters[targetValue].name;
+  let targetValue = 'none';
 
   slider.classList.add('hidden');
-
-  // Creating the slider with updated 'min', 'max', and 'step' values
   noUiSlider.create(slider, {
-    start: selectedStart,
-    step: selectedFilterStep,
+    start: filters[targetValue].start,
+    step: filters[targetValue].step,
     range: {
-      'min': selectedFilterMin,
-      'max': selectedFilterMax
+      'min': filters[targetValue].min,
+      'max': filters[targetValue].max
     }
   });
 
   iconEffects.forEach((element) => {
     element.addEventListener('click', (evt) => {
-
-      targetValue = evt.target.value; // Update the target value
-      selectedFilterMin = filters[targetValue].min; // Update the 'min' value based on the new target value
-      selectedFilterMax = filters[targetValue].max; // Update the 'max' value based on the new target value
-      selectedFilterStep = filters[targetValue].step; // Update the 'step' value based on the new target value
-      selectedStart = filters[targetValue].start;
-      selectedFilterValue = filters[targetValue].name;
-
-      // Update the slider with the new 'min', 'max', and 'step' values
-      slider.noUiSlider.updateOptions({
-        name: selectedFilterValue,
-        start: selectedStart,
-        step: selectedFilterStep,
-        range: {
-          'min': selectedFilterMin,
-          'max': selectedFilterMax
-        }
-      });
-
-      if (evt.target.value === 'none') {
-        slider.classList.add('hidden');
-        changeViewPicture.style.filter = 'none';
-      } else {
-        slider.classList.remove('hidden');
-        const filterScaleValue = `${filters[targetValue].name}(${filters[targetValue].default}${filters[targetValue].unit})`;
-        changeViewPicture.style.filter = filterScaleValue;
-
-      }
-
+      targetValue = evt.target.value;
+      updateSlider(targetValue);
+      updateFilterStyle(targetValue);
     });
   });
 
   slider.noUiSlider.on('update', (values, handle) => {
-
-    const filterScaleValue = `${filters[targetValue].name}(${values[handle]}${filters[targetValue].unit})`;
+    const selectedFilter = filters[targetValue];
+    const filterScaleValue = `${selectedFilter.name}(${values[handle]}${selectedFilter.unit})`;
     changeViewPicture.style.filter = filterScaleValue;
-    iconEffects.value = filters[targetValue].name;
-    inputEffects.value = `${values[handle]}${filters[targetValue].unit}`;
+    iconEffects.value = selectedFilter.name;
+    inputEffects.value = `${values[handle]}${selectedFilter.unit}`;
   });
-
 };
 
 getElementStyle();

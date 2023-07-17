@@ -5,6 +5,8 @@ const buttonCloseForm = formDownloadPictyre.querySelector('.img-upload__cancel')
 const overlay = formDownloadPictyre.querySelector('.img-upload__overlay');
 const inputHeshTeg = formDownloadPictyre.querySelector('.text__hashtags');
 const inputComment = formDownloadPictyre.querySelector('.text__description');
+const slider = document.querySelector('.img-upload__effect-level');
+const previewImage = document.querySelector('.img-upload__preview');
 
 // подключение пристин
 const pristine = new Pristine(formDownloadPictyre,{
@@ -20,16 +22,12 @@ const validateHashtags = (value) => {
   const uniqueHashtags = new Set(hashtags);
   const trimmedHashtags = hashtags.map((tag) => tag.trim());
 
-  if (
+  return (
     (hashtags.every((tag) => firstCondition.test(tag)) &&
       uniqueHashtags.size === hashtags.length &&
       hashtags.length <= 5) ||
-      trimmedHashtags.length === hashtags.length &&
-      (value.length === 0)) {
-    return true;
-  }else{
-    return false;
-  }
+    (trimmedHashtags.length === hashtags.length && value.length === 0)
+  );
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtags , 'ХЭШЕ');
@@ -70,9 +68,12 @@ const onFileChange = (evt) => {
 const onFormClose = (evt) => {
 
   evt.preventDefault();
-  overlay.classList.add('hidden');
-  body.classList.remove('modal-open');
+  slider.noUiSlider.reset();
   formDownloadPictyre.reset();
+  overlay.classList.add('hidden');
+  slider.classList.add('hidden');
+  body.classList.remove('modal-open');
+  previewImage.style.transform = 'scale(1)';
 };
 
 //Закрытыие формы ввода esc
@@ -83,8 +84,11 @@ const onFormCloseEscape = (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
     formDownloadPictyre.reset();
+    slider.noUiSlider.reset();
+    slider.classList.add('hidden');
     overlay.classList.add('hidden');
     body.classList.remove('modal-open');
+    previewImage.style.transform = 'scale(1)';
   }
 };
 
