@@ -62,34 +62,38 @@ const getAllComments = (comments) => {
 };
 
 
-let countShowComments = 5;
-//сброс счетчика и обработчика событий для комментариев
-const closeCountComments = (resetCountComment) => {
+const createCounter = () => {
 
-  countShowComments = resetCountComment;
+  let countShowComments = 5;
+
+  //сброс счетчика и обработчика событий для комментариев
+  const closeCountComments = (resetCountComment) => {
+
+    countShowComments = resetCountComment;
+  };
+
+  //показ следующих пяти комментариев
+  const showToNewFiveComments = (iterationPhoto) => {
+
+    countShowComments += 5;
+    ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
+    getAllComments(iterationPhoto.slice(START_INDEX_COMMENTS, countShowComments));
+  };
+
+  //показ первых пяти комментариев
+  const showFiveComments = (commentsToPhoto) => {
+
+    const commentsShow = commentsToPhoto.comments;
+    ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
+
+    fillBigPhotoDiscriptions(commentsToPhoto);
+    getAllComments(commentsShow.slice(START_INDEX_COMMENTS, countShowComments));
+
+  };
+
+  return {closeCountComments, showToNewFiveComments, showFiveComments};
 };
 
-//показ первых пяти комментариев
-const showFiveComments = (commentsToPhoto) => {
 
-  const commentsShow = commentsToPhoto.comments;
-  ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
-
-  fillBigPhotoDiscriptions(commentsToPhoto);
-  getAllComments(commentsShow.slice(START_INDEX_COMMENTS, countShowComments));
-  //console.log(commentsToPhoto.comments)
-};
-
-//показ следующих пяти комментариев
-const showToNewFiveComments = (iterationPhoto) => {
-
-  countShowComments += 5;
-  ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
-  getAllComments(iterationPhoto.slice(START_INDEX_COMMENTS, countShowComments));
-};
-
-export {
-  showToNewFiveComments,
-  closeCountComments,
-  showFiveComments,
+export {createCounter
 };

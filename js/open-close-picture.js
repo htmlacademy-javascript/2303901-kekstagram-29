@@ -1,16 +1,13 @@
-import {
-  showToNewFiveComments,
-  closeCountComments,
-  showFiveComments,
-} from './aad-comments.js';
+import {createCounter} from './aad-comments.js';
 
 const BIG_PICTURE = document.querySelector('.big-picture');
 const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
 const COMMENTS_COUNTER_VALUES = 5;
-
 const addButtonShowComments = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
+const {closeCountComments, showToNewFiveComments, showFiveComments} = createCounter();
 
 const updateCommentCount = (updateComments) => {
+
   const showingComments = document.querySelectorAll('.social__comment');
   const countComments = document.querySelector('.social__comment-count');
   const commentCountElement = document.querySelector('.social__comment-count');
@@ -41,7 +38,6 @@ const onShowBigPicture = (copyArrayPhoto) => {
 
     });
   }
-
 
   buttonShowComments.addEventListener('click', (evt) => {
     evt.preventDefault();
