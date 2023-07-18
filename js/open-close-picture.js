@@ -2,9 +2,29 @@ import {createCounter} from './aad-comments.js';
 
 const BIG_PICTURE = document.querySelector('.big-picture');
 const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
-const COMMENTS_COUNTER_VALUES = 5;
+const COMMENTS_COUNTER_VALUES = 0;
 const addButtonShowComments = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
-const {closeCountComments, showToNewFiveComments, showFiveComments} = createCounter();
+const {closeCountComments, showFiveComments} = createCounter();
+
+
+// функция заполняющая большую картинку описаниями из маленькой картинки
+const fillBigPhotoDiscriptions = ({discription, url, likes, comments,id}) => {
+
+  const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
+  const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
+  const commentsBigPicture = BIG_PICTURE.querySelector('.comments-count');
+  const discriptionBigPhoto = BIG_PICTURE.querySelector('.social__caption');
+  const modalOpen = document.querySelector('body');
+
+  modalOpen.classList.add('modal-open');
+  datasBigPictures.src = url;
+  datasBigPictures.alt = discription;
+  discriptionBigPhoto.textContent = discription;
+  datasBigPictures.textContent = likes;
+  likesBigPicture.textContent = likes;
+  datasBigPictures.id = id;
+  commentsBigPicture.textContent = comments.length;
+};
 
 const updateCommentCount = (updateComments) => {
 
@@ -30,23 +50,24 @@ const onShowBigPicture = (copyArrayPhoto) => {
   const buttonShowComments = document.querySelector('.comments-loader');
 
   for (const clickToSmallPhoto of SMALL_PICTURES) {
+
     clickToSmallPhoto.addEventListener('click', (evt) => {
       evt.preventDefault();
 
-      showFiveComments(copyArrayPhoto.copy[+evt.target.id - 1]);
+      BIG_PICTURE.classList.remove('hidden');
+      fillBigPhotoDiscriptions(copyArrayPhoto.copy[+evt.target.id - 1]);
+      showFiveComments(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
       updateCommentCount(copyArrayPhoto.copy[+evt.target.id - 1].comments);
-
     });
   }
 
   buttonShowComments.addEventListener('click', (evt) => {
     evt.preventDefault();
 
-    showToNewFiveComments(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
+    showFiveComments(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
     updateCommentCount(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
   });
 };
-
 
 //функция закрывающая большую картинку
 const onCloseBigPhoto = () => {
@@ -76,4 +97,4 @@ const onCloseBigPhoto = () => {
   });
 };
 
-export {onShowBigPicture, onCloseBigPhoto, updateCommentCount};
+export {onShowBigPicture, onCloseBigPhoto, updateCommentCount, fillBigPhotoDiscriptions};

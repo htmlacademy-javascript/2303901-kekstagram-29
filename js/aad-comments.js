@@ -1,32 +1,8 @@
-//адресса картинок
-const BIG_PICTURE = document.querySelector('.big-picture');
 const ALL_COMENTS_FOR_BIG_PICTURE = document.querySelector('.social__comments');
 const START_INDEX_COMMENTS = 0;
 
-
-// функция заполняющая большую картинку описаниями из маленькой картинки
-const fillBigPhotoDiscriptions = ({discription, url, likes, comments,id}) => {
-
-  const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
-  const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
-  const commentsBigPicture = BIG_PICTURE.querySelector('.comments-count');
-  const discriptionBigPhoto = BIG_PICTURE.querySelector('.social__caption');
-  const modalOpen = document.querySelector('body');
-
-  modalOpen.classList.add('modal-open');
-  BIG_PICTURE.classList.remove('hidden');
-  datasBigPictures.src = url;
-  datasBigPictures.alt = discription;
-  discriptionBigPhoto.textContent = discription;
-  datasBigPictures.textContent = likes;
-  likesBigPicture.textContent = likes;
-  datasBigPictures.id = id;
-  commentsBigPicture.textContent = comments.length;
-};
-
 //функция по созданию коментариев пользователей
 const createBlockComment = ({avatar, message, name}) => {
-
 
   const oneComment = document.createElement('li');
   oneComment.classList.add('social__comment');
@@ -46,8 +22,8 @@ const createBlockComment = ({avatar, message, name}) => {
   return oneComment;
 };
 
-// функция coбирающая коментарии
-const getAllComments = (comments) => {
+// функция добавления комментариев
+const addIncomingComments = (comments) => {
 
   const commentsToPhoto = document.querySelector('.social__comments');
   const fragmentComments = document.createDocumentFragment();
@@ -61,10 +37,9 @@ const getAllComments = (comments) => {
   commentsToPhoto.append(fragmentComments);
 };
 
-
 const createCounter = () => {
 
-  let countShowComments = 5;
+  let countShowComments = 0;
 
   //сброс счетчика и обработчика событий для комментариев
   const closeCountComments = (resetCountComment) => {
@@ -72,28 +47,17 @@ const createCounter = () => {
     countShowComments = resetCountComment;
   };
 
-  //показ следующих пяти комментариев
-  const showToNewFiveComments = (iterationPhoto) => {
-
-    countShowComments += 5;
-    ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
-    getAllComments(iterationPhoto.slice(START_INDEX_COMMENTS, countShowComments));
-  };
-
   //показ первых пяти комментариев
   const showFiveComments = (commentsToPhoto) => {
 
-    const commentsShow = commentsToPhoto.comments;
+    countShowComments += 5;
     ALL_COMENTS_FOR_BIG_PICTURE.innerHTML = '';
 
-    fillBigPhotoDiscriptions(commentsToPhoto);
-    getAllComments(commentsShow.slice(START_INDEX_COMMENTS, countShowComments));
-
+    addIncomingComments(commentsToPhoto.slice(START_INDEX_COMMENTS, countShowComments));
   };
 
-  return {closeCountComments, showToNewFiveComments, showFiveComments};
+  return {closeCountComments, showFiveComments};
 };
 
 
-export {createCounter
-};
+export {createCounter};
