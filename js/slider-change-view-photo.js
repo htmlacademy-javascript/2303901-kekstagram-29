@@ -60,6 +60,7 @@ const filters = {
 };
 
 const updateSlider = (value) => {
+
   const selectedFilter = filters[value];
 
   slider.noUiSlider.updateOptions({

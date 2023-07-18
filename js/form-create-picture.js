@@ -58,7 +58,6 @@ const onFileChange = (evt) => {
   evt.preventDefault();
   if(fileInput.value.length > 0) {
 
-    //onSubmitForm();
     overlay.classList.remove('hidden');
     body.classList.add('modal-open');
   }
@@ -91,7 +90,6 @@ const onFormCloseEscape = (evt) => {
 const onFocus = () => {
 
   document.removeEventListener('keydown', onFormCloseEscape);
-
 };
 
 //разрешение открытия поля воода при фокусе
