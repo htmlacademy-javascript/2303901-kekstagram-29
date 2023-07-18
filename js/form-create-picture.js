@@ -73,7 +73,7 @@ const onFormClose = (evt) => {
   overlay.classList.add('hidden');
   slider.classList.add('hidden');
   body.classList.remove('modal-open');
-  previewImage.style.transform = 'scale(1)';
+  previewImage.style = '';
 };
 
 //Закрытыие формы ввода esc
@@ -81,14 +81,8 @@ const onFormCloseEscape = (evt) => {
 
   if(evt.key === 'Escape'){
 
-    evt.preventDefault();
     evt.stopPropagation();
-    formDownloadPictyre.reset();
-    slider.noUiSlider.reset();
-    slider.classList.add('hidden');
-    overlay.classList.add('hidden');
-    body.classList.remove('modal-open');
-    previewImage.style.transform = 'scale(1)';
+    onFormClose(evt);
   }
 };
 

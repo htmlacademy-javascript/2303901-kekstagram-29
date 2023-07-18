@@ -74,10 +74,13 @@ const updateSlider = (value) => {
 };
 
 const updateFilterStyle = (value) => {
+
   if (value === 'none') {
     slider.classList.add('hidden');
     changeViewPicture.style.filter = 'none';
+
   } else {
+
     slider.classList.remove('hidden');
     const selectedFilter = filters[value];
     const filterScaleValue = `${selectedFilter.name}(${selectedFilter.default}${selectedFilter.unit})`;
@@ -99,7 +102,9 @@ const getElementStyle = () => {
   });
 
   iconEffects.forEach((element) => {
+
     element.addEventListener('click', (evt) => {
+
       targetValue = evt.target.value;
       updateSlider(targetValue);
       updateFilterStyle(targetValue);
@@ -107,8 +112,10 @@ const getElementStyle = () => {
   });
 
   slider.noUiSlider.on('update', (values, handle) => {
+
     const selectedFilter = filters[targetValue];
     const filterScaleValue = `${selectedFilter.name}(${values[handle]}${selectedFilter.unit})`;
+
     changeViewPicture.style.filter = filterScaleValue;
     iconEffects.value = selectedFilter.name;
     inputEffects.value = `${values[handle]}${selectedFilter.unit}`;
