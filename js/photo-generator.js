@@ -1,7 +1,6 @@
 import {getRandomInteger} from './util.js';
 import {addComments} from './comment-generator.js';
 
-
 const PHOTO_DISCRIPTION = [
   'Ёлки в лесу',
   'Вид на горы',
