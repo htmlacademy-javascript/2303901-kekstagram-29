@@ -12,6 +12,7 @@ const PHOTO_DISCRIPTION = [
 
 const PHOTO_COUNT = 25;
 
+
 const Likes = {
   MIN: 15,
   MAX: 200,
