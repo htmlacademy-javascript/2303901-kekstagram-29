@@ -1,3 +1,5 @@
+import {postDatasFormToServer} from './geting-posting-data.js';
+
 const fileInput = document.querySelector('.img-upload__input');
 const formDownloadPictyre = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -7,6 +9,7 @@ const inputHeshTeg = formDownloadPictyre.querySelector('.text__hashtags');
 const inputComment = formDownloadPictyre.querySelector('.text__description');
 const slider = document.querySelector('.img-upload__effect-level');
 const previewImage = document.querySelector('.img-upload__preview');
+const buttonSendForm = document.querySelector('.img-upload__submit');
 
 // подключение пристин
 const pristine = new Pristine(formDownloadPictyre,{
@@ -43,15 +46,6 @@ const valueInputComment = (value) => {
 };
 pristine.addValidator(inputComment, valueInputComment , 'не меньше двух не больше 140');
 
-//блокировка отправки формы
-formDownloadPictyre.addEventListener('submit', (evt) => {
-
-  if (!pristine.validate(inputHeshTeg) || !pristine.validate(inputComment)) {
-    return evt.preventDefault();
-  }
-});
-
-
 // Добавляем обработчик события изменения значения поля ввода файла
 const onFileChange = (evt) => {
 
@@ -61,6 +55,7 @@ const onFileChange = (evt) => {
     overlay.classList.remove('hidden');
     body.classList.add('modal-open');
   }
+
 };
 
 //Закрытыие формы ввода
@@ -73,6 +68,7 @@ const onFormClose = (evt) => {
   slider.classList.add('hidden');
   body.classList.remove('modal-open');
   previewImage.style = '';
+  buttonSendForm.disabled = false;
 };
 
 //Закрытыие формы ввода esc
@@ -85,6 +81,25 @@ const onFormCloseEscape = (evt) => {
   }
 };
 
+//блокировка отправки формы
+formDownloadPictyre.addEventListener('submit', (evt) => {
+  const formData = new FormData(evt.target);
+
+  if (!pristine.validate(inputHeshTeg) || !pristine.validate(inputComment)) {
+
+    return evt.preventDefault();
+
+  }else{
+
+    buttonSendForm.disabled = true;
+    //onFormClose(evt);
+
+    postDatasFormToServer(formData);
+
+    console.log(formData);
+
+  }
+});
 
 //запрет закрытия поля воода при фокусе
 const onFocus = () => {
@@ -106,3 +121,6 @@ inputHeshTeg.addEventListener('focus', onFocus);
 inputHeshTeg.addEventListener('blur', onFocusOut);
 inputComment.addEventListener('focus', onFocus);
 inputComment.addEventListener('blur', onFocusOut);
+
+export {onFormClose};
+

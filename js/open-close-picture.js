@@ -6,20 +6,19 @@ const COMMENTS_COUNTER_VALUES = 0;
 const addButtonShowComments = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
 const {closeCountComments, showFiveComments} = createCounter();
 
-
 // функция заполняющая большую картинку описаниями из маленькой картинки
-const fillBigPhotoDiscriptions = ({discription, url, likes, comments,id}) => {
+const fillBigPhotoDiscriptions = ({description, url, likes, comments,id}) => {
 
   const datasBigPictures = BIG_PICTURE.querySelector('.big-picture__img ').querySelector('img');
   const likesBigPicture = BIG_PICTURE.querySelector('.likes-count');
   const commentsBigPicture = BIG_PICTURE.querySelector('.comments-count');
-  const discriptionBigPhoto = BIG_PICTURE.querySelector('.social__caption');
+  const discriptionBigPhoto = document.querySelector('.social__header').querySelector('.social__caption');
   const modalOpen = document.querySelector('body');
 
   modalOpen.classList.add('modal-open');
   datasBigPictures.src = url;
-  datasBigPictures.alt = discription;
-  discriptionBigPhoto.textContent = discription;
+  datasBigPictures.alt = description;
+  discriptionBigPhoto.textContent = description;
   datasBigPictures.textContent = likes;
   likesBigPicture.textContent = likes;
   datasBigPictures.id = id;
@@ -32,7 +31,6 @@ const updateCommentCount = (updateComments) => {
   const countComments = document.querySelector('.social__comment-count');
   const commentCountElement = document.querySelector('.social__comment-count');
   const commentsCountElement = document.createElement('span');
-
 
   countComments.textContent = '';
   commentsCountElement.classList.add('comments-count');
@@ -55,17 +53,17 @@ const onShowBigPicture = (copyArrayPhoto) => {
       evt.preventDefault();
 
       BIG_PICTURE.classList.remove('hidden');
-      fillBigPhotoDiscriptions(copyArrayPhoto.copy[+evt.target.id - 1]);
-      showFiveComments(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
-      updateCommentCount(copyArrayPhoto.copy[+evt.target.id - 1].comments);
+      fillBigPhotoDiscriptions(copyArrayPhoto[+evt.target.id]);
+      showFiveComments(copyArrayPhoto[addButtonShowComments.id].comments);
+      updateCommentCount(copyArrayPhoto[+evt.target.id].comments);
     });
   }
 
   buttonShowComments.addEventListener('click', (evt) => {
     evt.preventDefault();
 
-    showFiveComments(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
-    updateCommentCount(copyArrayPhoto.copy[addButtonShowComments.id - 1].comments);
+    showFiveComments(copyArrayPhoto[addButtonShowComments.id].comments);
+    updateCommentCount(copyArrayPhoto[addButtonShowComments.id].comments);
   });
 };
 
@@ -98,3 +96,4 @@ const onCloseBigPhoto = () => {
 };
 
 export {onShowBigPicture, onCloseBigPhoto, updateCommentCount, fillBigPhotoDiscriptions};
+
