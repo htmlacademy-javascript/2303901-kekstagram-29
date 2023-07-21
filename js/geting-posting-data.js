@@ -52,9 +52,8 @@ const showSuccessWindow = () => {
   tagBody.insertAdjacentElement('beforeend', trueSendMessage);
 };
 
-const closeSuccessWindow = (evt) => {
+const closeSuccessWindow = () => {
 
-  evt.preventDefault();
   trueSendMessage.remove();
 };
 
@@ -79,7 +78,7 @@ buttonCloseSuccess.addEventListener('click', closeSuccessWindow);
 trueSendMessage.addEventListener('click', closeSuccessWindowClisk);
 document.addEventListener('keydown', closeSuccessWindowEsk);
 
-const messageOkDownlofd = () => {
+const messageErrorDownlofd = () => {
 
   const messageFallServer = document.createElement('div');
   messageFallServer.classList.add('message-fall');
@@ -111,7 +110,7 @@ const getPicturesFromServer = () => {
     })
     .catch(() => {
 
-      messageOkDownlofd();
+      messageErrorDownlofd();
     });
 };
 
@@ -119,7 +118,7 @@ getPicturesFromServer();
 
 const postDatasFormToServer = (formData) => {
 
-  fetch('https://29.javascript.pages.academy/kekstagram/data', {
+  fetch('https://29.javascript.pages.academy/kekstagram', {
     method: 'POST',
     credentials: 'same-origin',
     body: formData
@@ -127,8 +126,7 @@ const postDatasFormToServer = (formData) => {
 
     .then((response) => {
 
-      if (response.ok) {
-
+      if (response.ok === true) {
         return response.json();
       }
       throw new Error('Network response was not ok.');
@@ -144,6 +142,7 @@ const postDatasFormToServer = (formData) => {
       buttonSendForm.disabled = false;
     });
 };
+
 
 export {postDatasFormToServer};
 

@@ -59,9 +59,9 @@ const onFileChange = (evt) => {
 };
 
 //Закрытыие формы ввода
-const onFormClose = (evt) => {
+const onFormClose = () => {
 
-  evt.preventDefault();
+
   slider.noUiSlider.reset();
   formDownloadPictyre.reset();
   overlay.classList.add('hidden');
@@ -83,8 +83,10 @@ const onFormCloseEscape = (evt) => {
 
 //блокировка отправки формы
 formDownloadPictyre.addEventListener('submit', (evt) => {
+
   const formData = new FormData(evt.target);
 
+  evt.preventDefault();
   if (!pristine.validate(inputHeshTeg) || !pristine.validate(inputComment)) {
 
     return evt.preventDefault();
@@ -92,12 +94,7 @@ formDownloadPictyre.addEventListener('submit', (evt) => {
   }else{
 
     buttonSendForm.disabled = true;
-    //onFormClose(evt);
-
     postDatasFormToServer(formData);
-
-    console.log(formData);
-
   }
 });
 
