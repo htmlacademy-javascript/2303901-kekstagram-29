@@ -127,6 +127,7 @@ const postDatasFormToServer = (formData) => {
     method: 'POST',
     credentials: 'same-origin',
     body: formData
+
   })
 
     .then((response) => {

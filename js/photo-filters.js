@@ -1,8 +1,8 @@
 
-import {getRandomInteger} from './util.js';
+import {getRandomInteger, debounce} from './util.js';
 import {paintAllPictures} from './thumbnail-rendering.js';
 
-
+const TIME_OUT_DELAY = 500;
 const buttonFilterDefauit = document.querySelector('#filter-default');
 const buttonFilterRandom = document.querySelector('#filter-random');
 const buttonFilterGiscussed = document.querySelector('#filter-discussed');
@@ -68,9 +68,6 @@ const addFilterRandom = (photos) => {
   buttonFilterGiscussed.classList.remove('img-filters__button--active');
 };
 
-
-
-
 const filterGiscussed = (photos) => {
 
   const clear = document.querySelectorAll('.picture');
@@ -98,9 +95,9 @@ const addFilterGiscussed = (photos) => {
 
 const addSortToPhotos = (photos) => {
   paintAllPictures(photos);
-  buttonFilterDefauit.addEventListener('click', () => addFilterDefault(photos));
-  buttonFilterRandom.addEventListener('click', () => addFilterRandom(photos));
-  buttonFilterGiscussed.addEventListener('click', () => addFilterGiscussed(photos));
+  buttonFilterDefauit.addEventListener('click', debounce(() => addFilterDefault(photos), TIME_OUT_DELAY));
+  buttonFilterRandom.addEventListener('click', debounce(() => addFilterRandom(photos), TIME_OUT_DELAY));
+  buttonFilterGiscussed.addEventListener('click', debounce(() => addFilterGiscussed(photos), TIME_OUT_DELAY));
 };
 
 
