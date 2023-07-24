@@ -1,6 +1,6 @@
-import {paintAllPictures} from './thumbnail-rendering.js';
-import {onShowBigPicture} from './open-close-picture.js';
+
 import {onFormClose} from './form-create-picture.js';
+import {addSortToPhotos} from './photo-filters.js';
 
 //сообщение об ошибке
 const buttonSendForm = document.querySelector('.img-upload__submit');
@@ -9,6 +9,7 @@ const errorMessage = errorMessageTemplate.querySelector('.error');
 const placeClickToClose = errorMessageTemplate.querySelector('.error__inner');
 const tagBody = document.querySelector('body');
 const errorButton = errorMessage.querySelector('.error__button');
+const showFilters = document.querySelector('.img-filters');
 
 const showErrorMessage = () => {
 
@@ -21,7 +22,7 @@ const closeErrorWindowButton = (evt) => {
   errorMessage.remove();
 };
 
-const closeErrorWindowEsk = (evt) => {
+const closeErrorWindowEck = (evt) => {
 
   if (evt.key === 'Escape' && document.documentElement.classList.contains('error')) {
     closeErrorWindowButton(evt);
@@ -40,7 +41,7 @@ const closeErrorWindowClick = (evt) => {
 
 errorMessage.addEventListener('click', closeErrorWindowClick);
 errorButton.addEventListener('click', closeErrorWindowButton);
-document.addEventListener('keydown', closeErrorWindowEsk);
+document.addEventListener('keydown', closeErrorWindowEck);
 
 //сообщение успешной отправки
 const trueSendMessageTemplate = document.querySelector('#success').content;
@@ -57,7 +58,7 @@ const closeSuccessWindow = () => {
   trueSendMessage.remove();
 };
 
-const closeSuccessWindowEsk = (evt) => {
+const closeSuccessWindowEck = (evt) => {
 
   if (evt.key === 'Escape' && trueSendMessage.classList.contains('success')) {
     closeSuccessWindow(evt);
@@ -76,9 +77,9 @@ const closeSuccessWindowClisk = (evt) => {
 
 buttonCloseSuccess.addEventListener('click', closeSuccessWindow);
 trueSendMessage.addEventListener('click', closeSuccessWindowClisk);
-document.addEventListener('keydown', closeSuccessWindowEsk);
+document.addEventListener('keydown', closeSuccessWindowEck);
 
-const messageErrorDownlofd = () => {
+const messageErrorDownload = () => {
 
   const messageFallServer = document.createElement('div');
   messageFallServer.classList.add('message-fall');
@@ -96,7 +97,6 @@ const getPicturesFromServer = () => {
     credentials: 'same-origin'
   })
     .then((response) => {
-
       if (response.ok) {
         return response.json();
       }
@@ -104,13 +104,18 @@ const getPicturesFromServer = () => {
     })
     .then((datasPictures) => {
 
-      paintAllPictures(datasPictures);
-      onShowBigPicture(datasPictures);
+
+      addSortToPhotos(datasPictures);
+
+    })
+    .then(() => {
+
+      showFilters.classList.remove('img-filters--inactive');
 
     })
     .catch(() => {
 
-      messageErrorDownlofd();
+      messageErrorDownload();
     });
 };
 
@@ -127,13 +132,14 @@ const postDatasFormToServer = (formData) => {
     .then((response) => {
 
       if (response.ok === true) {
-        return response.json();
+
+        return onFormClose();
       }
       throw new Error('Network response was not ok.');
     })
 
     .then(() => {
-      onFormClose();
+
       showSuccessWindow();
     })
     .catch(() => {

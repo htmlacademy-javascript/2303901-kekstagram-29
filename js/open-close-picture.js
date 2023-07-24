@@ -42,30 +42,61 @@ const updateCommentCount = (updateComments) => {
   }
 };
 
-const onShowBigPicture = (copyArrayPhoto) => {
+const setupOnShowBigPicture = () => {
+  let onSmallPictureClick;
+  let onShowCommentsClick;
 
-  const SMALL_PICTURES = document.querySelectorAll('.picture');
-  const buttonShowComments = document.querySelector('.comments-loader');
+  const onShowBigPictures = (arrayPhoto) => {
+    const SMALL_PICTURES = document.querySelectorAll('.picture');
+    const buttonShowComments = document.querySelector('.comments-loader');
 
-  for (const clickToSmallPhoto of SMALL_PICTURES) {
+    if (onSmallPictureClick) {
+      SMALL_PICTURES.forEach((clickToSmallPhoto) => {
+        clickToSmallPhoto.removeEventListener('click', onSmallPictureClick);
+      });
+    }
 
-    clickToSmallPhoto.addEventListener('click', (evt) => {
+    if (onShowCommentsClick) {
+      buttonShowComments.removeEventListener('click', onShowCommentsClick);
+    }
+
+    onSmallPictureClick = (evt) => {
       evt.preventDefault();
 
+      arrayPhoto.forEach((element) => {
+        if (element.id === +evt.target.id) {
+          fillBigPhotoDiscriptions(element);
+          showFiveComments(element.comments);
+          updateCommentCount(element.comments);
+        }
+      });
+
       BIG_PICTURE.classList.remove('hidden');
-      fillBigPhotoDiscriptions(copyArrayPhoto[+evt.target.id]);
-      showFiveComments(copyArrayPhoto[addButtonShowComments.id].comments);
-      updateCommentCount(copyArrayPhoto[+evt.target.id].comments);
+    };
+
+    onShowCommentsClick = (evt) => {
+      evt.preventDefault();
+
+      arrayPhoto.forEach((element) => {
+        if (+element.id === +addButtonShowComments.id) {
+          showFiveComments(element.comments);
+          updateCommentCount(element.comments);
+        }
+      });
+    };
+
+    SMALL_PICTURES.forEach((clickToSmallPhoto) => {
+      clickToSmallPhoto.addEventListener('click', onSmallPictureClick);
     });
-  }
 
-  buttonShowComments.addEventListener('click', (evt) => {
-    evt.preventDefault();
+    buttonShowComments.addEventListener('click', onShowCommentsClick);
+  };
 
-    showFiveComments(copyArrayPhoto[addButtonShowComments.id].comments);
-    updateCommentCount(copyArrayPhoto[addButtonShowComments.id].comments);
-  });
+  return onShowBigPictures;
 };
+
+const showBigPicture = setupOnShowBigPicture();
+
 
 //функция закрывающая большую картинку
 const onCloseBigPhoto = () => {
@@ -95,5 +126,6 @@ const onCloseBigPhoto = () => {
   });
 };
 
-export {onShowBigPicture, onCloseBigPhoto, updateCommentCount, fillBigPhotoDiscriptions};
+
+export {showBigPicture, onCloseBigPhoto, updateCommentCount, fillBigPhotoDiscriptions};
 

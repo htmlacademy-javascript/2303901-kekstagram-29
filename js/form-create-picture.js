@@ -91,11 +91,10 @@ formDownloadPictyre.addEventListener('submit', (evt) => {
 
     return evt.preventDefault();
 
-  }else{
-
-    buttonSendForm.disabled = true;
-    postDatasFormToServer(formData);
   }
+
+  buttonSendForm.disabled = true;
+  postDatasFormToServer(formData);
 });
 
 //запрет закрытия поля воода при фокусе

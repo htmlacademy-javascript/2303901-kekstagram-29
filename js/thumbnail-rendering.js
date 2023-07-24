@@ -1,3 +1,5 @@
+import {showBigPicture} from './open-close-picture.js';
+
 //поиск клона шаблона
 const THEMPLATE_PICTURE = document.querySelector('#picture').content;
 const THEMPLATE_PICTURE_TEG = THEMPLATE_PICTURE.querySelector('.picture');
@@ -32,6 +34,8 @@ const paintAllPictures = (valuePhoto) => {
   });
 
   addToHtml.appendChild(fragmentPhoto);
+
+  showBigPicture(valuePhoto);
 };
 
 export{paintAllPictures};
