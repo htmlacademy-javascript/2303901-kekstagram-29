@@ -1,8 +1,8 @@
-const slider = document.querySelector('.img-upload__effect-level');
+const slider = document.querySelector('.effect-level__slider');
 const changeViewPicture = document.querySelector('.img-upload__preview');
 const iconEffects = document.querySelectorAll('.effects__radio');
 const inputEffects = document.querySelector('.effect-level__value');
-//const levelEffects = document.querySelector('.effect-level__slider');
+const levelEffects = document.querySelector('.img-upload__effect-level ');
 
 const filters = {
   chrome: {
@@ -79,11 +79,12 @@ const updateSlider = (value) => {
 const updateFilterStyle = (value) => {
 
   if (value === 'none') {
+    levelEffects.classList.add('hidden');
     slider.classList.add('hidden');
     changeViewPicture.style.filter = 'none';
 
   } else {
-
+    levelEffects.classList.remove('hidden');
     slider.classList.remove('hidden');
     const selectedFilter = filters[value];
     const filterScaleValue = `${selectedFilter.name}(${selectedFilter.default}${selectedFilter.unit})`;
@@ -92,8 +93,10 @@ const updateFilterStyle = (value) => {
 };
 
 const getElementStyle = () => {
+
   let targetValue = 'none';
 
+  levelEffects.classList.add('hidden');
   slider.classList.add('hidden');
   noUiSlider.create(slider, {
     start: filters[targetValue].start,

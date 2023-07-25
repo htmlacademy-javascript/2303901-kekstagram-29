@@ -10,7 +10,8 @@ const buttonCloseForm = formDownloadPictyre.querySelector('.img-upload__cancel')
 const overlay = formDownloadPictyre.querySelector('.img-upload__overlay');
 const inputHeshTeg = formDownloadPictyre.querySelector('.text__hashtags');
 const inputComment = formDownloadPictyre.querySelector('.text__description');
-const slider = document.querySelector('.img-upload__effect-level');
+const slider = document.querySelector('.effect-level__slider');
+const levelEffects = document.querySelector('.img-upload__effect-level ');
 const previewImage = document.querySelector('.img-upload__preview');
 const buttonSendForm = document.querySelector('.img-upload__submit');
 
@@ -21,15 +22,26 @@ const pristine = new Pristine(formDownloadPictyre,{
   errorTextParent: 'img-upload__text'
 });
 
+const resetPristine = () => {
+
+  //pristine.reset();
+};
 
 const validateHashtags = function (value) {
   const hashtags = value.split(' ');
 
   if (value === '') {
-    pristine.reset();
+    //pristine.reset();
     return true;
   }
-  return hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag));
+
+  if(hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag))){
+
+    //pristine.reset();
+    return true;
+  }
+
+  return false;
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtags, 'Хэштеги содержат недопустимые символы');
@@ -38,7 +50,13 @@ pristine.addValidator(inputHeshTeg, validateHashtags, 'Хэштеги содер
 const validateHashtagsLength = (value) => {
   const hashtags = value.split(' ');
 
-  return hashtags.every((hashtag) => hashtag.length <= HASTAG_MAX_LENGTH);
+  if(hashtags.every((hashtag) => hashtag.length <= HASTAG_MAX_LENGTH)){
+
+    //pristine.reset();
+    return true;
+  }
+
+  return false;
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsLength, 'Длина хэштега не может превышать 20 символов.');
@@ -48,7 +66,13 @@ const validateHashtagsUnique = (value) => {
   const hashtags = value.toLowerCase().split(' ');
   const uniqueHashtags = new Set(hashtags);
 
-  return uniqueHashtags.size === hashtags.length;
+  if(uniqueHashtags.size === hashtags.length){
+
+    //pristine.reset();
+    return true;
+  }
+
+  return false;
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsUnique, 'Все хэш тэги должны быть уникальными');
@@ -57,7 +81,13 @@ pristine.addValidator(inputHeshTeg, validateHashtagsUnique, 'Все хэш тэ�
 const validateHashtagsCount = (value) => {
   const hashtags = value.split(' ');
 
-  return hashtags.length <= HASTAGS_MAX_COUNT;
+  if(hashtags.length <= HASTAGS_MAX_COUNT){
+
+    //pristine.reset();
+    return true;
+
+  }
+  return false;
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsCount, 'Максимальное количество хэш тэгов 5');
@@ -71,7 +101,12 @@ const valueInputComment = (value) => {
     MAX: 140,
   };
 
-  return value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX;
+  if(value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX){
+
+    //pristine.reset();
+    return true;
+  }
+  return false;
 };
 
 pristine.addValidator(inputComment, valueInputComment , 'не меньше двух не больше 140');
@@ -92,16 +127,17 @@ const onFileChange = (evt) => {
 //Закрытыие формы ввода
 const onFormClose = () => {
 
-  //previewImage.removeAttribute('style');
+
+  levelEffects.classList.add('hidden');
+  slider.classList.add('hidden');
+  slider.noUiSlider.reset();
+  pristine.reset();
+  formDownloadPictyre.reset();
   buttonSendForm.disabled = false;
   overlay.classList.add('hidden');
-  slider.classList.add('hidden');
   body.classList.remove('modal-open');
   previewImage.style = '';
   previewImage.style = 'grayscale(1)';
-  formDownloadPictyre.reset();
-  pristine.reset();
-  slider.noUiSlider.reset();
 };
 
 //Закрытыие формы ввода esc
@@ -124,7 +160,7 @@ formDownloadPictyre.addEventListener('submit', (evt) => {
 
     return evt.preventDefault();
   }
-  pristine.reset();
+  //pristine.reset();
   buttonSendForm.disabled = true;
   postDatasFormToServer(formData);
 });
@@ -150,5 +186,5 @@ inputHeshTeg.addEventListener('blur', onFocusOut);
 inputComment.addEventListener('focus', onFocus);
 inputComment.addEventListener('blur', onFocusOut);
 
-export {onFormClose};
+export {onFormClose, resetPristine};
 

@@ -1,7 +1,7 @@
 
 import {onFormClose} from './form-create-picture.js';
 import {addSortToPhotos} from './photo-filters.js';
-
+import {resetPristine} from './form-create-picture.js';
 //сообщение об ошибке
 const buttonSendForm = document.querySelector('.img-upload__submit');
 const errorMessageTemplate = document.querySelector('#error').content;
@@ -106,8 +106,6 @@ const getPicturesFromServer = () => {
 
 
       addSortToPhotos(datasPictures);
-      console.log(datasPictures)
-
     })
     .then(() => {
 
@@ -135,6 +133,7 @@ const postDatasFormToServer = (formData) => {
 
       if (response.ok === true) {
 
+
         return onFormClose();
       }
       throw new Error('Network response was not ok.');
@@ -142,6 +141,7 @@ const postDatasFormToServer = (formData) => {
 
     .then(() => {
 
+      resetPristine();
       showSuccessWindow();
     })
     .catch(() => {
