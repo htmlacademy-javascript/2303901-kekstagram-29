@@ -15,7 +15,7 @@ const updateScale = (currentScale) => {
   previewImage.style.transform = `scale(${currentScale})`;
 };
 
-scaleDownButton.addEventListener('click', () => {
+scaleDownButton.addEventListener('mousedown', () => {
 
   let currentScale = parseFloat(scaleValueInput.value) / СalculatioValue.UNITY;
 
@@ -25,7 +25,7 @@ scaleDownButton.addEventListener('click', () => {
   }
 });
 
-scaleUpButton.addEventListener('click', () => {
+scaleUpButton.addEventListener('mousedown', () => {
 
   let currentScale = parseFloat(scaleValueInput.value) / СalculatioValue.UNITY;
 

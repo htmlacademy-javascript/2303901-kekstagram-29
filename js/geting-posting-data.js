@@ -106,6 +106,7 @@ const getPicturesFromServer = () => {
 
 
       addSortToPhotos(datasPictures);
+      console.log(datasPictures)
 
     })
     .then(() => {

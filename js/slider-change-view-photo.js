@@ -49,13 +49,13 @@ const filters = {
     step: 0.1
   },
   none: {
-    start: 0,
+    start: 50,
     name: 'none',
     default: '',
     unit: '',
     min: 0,
-    max: 0,
-    step: 0
+    max: 100,
+    step: 1
   }
 };
 
