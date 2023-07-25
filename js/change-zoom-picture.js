@@ -9,7 +9,7 @@ const СalculatioValue = {
 
 const updateScale = (currentScale) => {
 
-  const previewImage = document.querySelector('.img-upload__preview');
+  const previewImage = document.querySelector('.img-upload__preview').querySelector('img');
 
   scaleValueInput.value = `${currentScale * СalculatioValue.UNITY}%`;
   previewImage.style.transform = `scale(${currentScale})`;

@@ -1,4 +1,4 @@
-import {createCounter} from './aad-comments.js';
+import {createCounter} from './add-comments.js';
 
 const BIG_PICTURE = document.querySelector('.big-picture');
 const BUTTON_ADD_COMMENTS = document.querySelector('.comments-loader');
@@ -95,7 +95,7 @@ const setupOnShowBigPicture = () => {
   return onShowBigPictures;
 };
 
-const showBigPicture = setupOnShowBigPicture();
+const getDiscriptionBigPicture = setupOnShowBigPicture();
 
 
 //функция закрывающая большую картинку
@@ -127,5 +127,5 @@ const onCloseBigPhoto = () => {
 };
 
 
-export {showBigPicture, onCloseBigPhoto, updateCommentCount, fillBigPhotoDiscriptions};
+export {getDiscriptionBigPicture , onCloseBigPhoto, updateCommentCount, fillBigPhotoDiscriptions};
 

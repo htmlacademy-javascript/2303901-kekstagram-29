@@ -2,6 +2,8 @@ const slider = document.querySelector('.img-upload__effect-level');
 const changeViewPicture = document.querySelector('.img-upload__preview');
 const iconEffects = document.querySelectorAll('.effects__radio');
 const inputEffects = document.querySelector('.effect-level__value');
+//const levelEffects = document.querySelector('.effect-level__slider');
+
 const filters = {
   chrome: {
     name: 'grayscale',
@@ -49,10 +51,10 @@ const filters = {
     step: 0.1
   },
   none: {
-    start: 50,
+    start: 100,
     name: 'none',
-    default: '',
-    unit: '',
+    default: '100',
+    unit: '%',
     min: 0,
     max: 100,
     step: 1

@@ -26,6 +26,7 @@ const validateHashtags = function (value) {
   const hashtags = value.split(' ');
 
   if (value === '') {
+    pristine.reset();
     return true;
   }
   return hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag));
@@ -69,11 +70,13 @@ const valueInputComment = (value) => {
     MIN: 1,
     MAX: 140,
   };
+
   return value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX;
 };
+
 pristine.addValidator(inputComment, valueInputComment , 'не меньше двух не больше 140');
 
-// Добавляем обработчик события изменения значения поля ввода файла
+//обработчик события изменения значения поля ввода файла
 const onFileChange = (evt) => {
 
   evt.preventDefault();
@@ -88,7 +91,6 @@ const onFileChange = (evt) => {
 
 //Закрытыие формы ввода
 const onFormClose = () => {
-
 
   //previewImage.removeAttribute('style');
   buttonSendForm.disabled = false;
@@ -122,7 +124,7 @@ formDownloadPictyre.addEventListener('submit', (evt) => {
 
     return evt.preventDefault();
   }
-
+  pristine.reset();
   buttonSendForm.disabled = true;
   postDatasFormToServer(formData);
 });

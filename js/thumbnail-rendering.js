@@ -1,4 +1,4 @@
-import {showBigPicture} from './open-close-picture.js';
+import {getDiscriptionBigPicture} from './open-close-picture.js';
 
 //поиск клона шаблона
 const THEMPLATE_PICTURE = document.querySelector('#picture').content;
@@ -35,7 +35,7 @@ const paintAllPictures = (valuePhoto) => {
 
   addToHtml.appendChild(fragmentPhoto);
 
-  showBigPicture(valuePhoto);
+  getDiscriptionBigPicture(valuePhoto);
 };
 
 export{paintAllPictures};
