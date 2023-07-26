@@ -26,23 +26,33 @@ const fillBigPhotoDiscriptions = ({description, url, likes, comments,id}) => {
 };
 
 const updateCommentCount = (updateComments) => {
-
   const showingComments = document.querySelectorAll('.social__comment');
   const countComments = document.querySelector('.social__comment-count');
-  const commentCountElement = document.querySelector('.social__comment-count');
-  const commentsCountElement = document.createElement('span');
+  const maxLengthComments = document.querySelector('.comments-count');
+  const plaseAddComments = document.querySelector('.social__comments');
 
-  countComments.textContent = '';
-  commentsCountElement.classList.add('comments-count');
-  commentsCountElement.textContent = `${showingComments.length} из ${updateComments.length} комментариев`;
-  commentCountElement.appendChild(commentsCountElement);
+  const countCommentsHTML = `${showingComments.length} из`;
+  const maxLengthCommentsHTML = `${updateComments.length}`;
+
+  countComments.textContent = countCommentsHTML;
+  maxLengthComments.textContent = maxLengthCommentsHTML;
+
+  if (!countComments) {
+
+    const commentsCountHTML = `<div class="social__comment-count">${countCommentsHTML} из <span class="comments-count">${updateComments.length}</span> комментариев</div>`;
+    plaseAddComments.insertAdjacentHTML('beforebegin', commentsCountHTML);
+  }
+
+  countComments.innerHTML = `${showingComments.length} из <span class="comments-count">${updateComments.length}</span> комментариев`;
 
   if (showingComments.length >= updateComments.length) {
     BUTTON_ADD_COMMENTS.classList.add('hidden');
   }
+
 };
 
 const setupOnShowBigPicture = () => {
+
   let onSmallPictureClick;
   let onShowCommentsClick;
 

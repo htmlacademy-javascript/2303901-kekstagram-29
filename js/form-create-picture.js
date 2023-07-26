@@ -22,22 +22,22 @@ const pristine = new Pristine(formDownloadPictyre,{
   errorTextParent: 'img-upload__text'
 });
 
-const resetPristine = () => {
+const resetPristine = () =>{
+  pristine.destroy();
+} ;
 
-  //pristine.reset();
-};
-
-const validateHashtags = function (value) {
+const validateHashtags = (value) => {
   const hashtags = value.split(' ');
 
   if (value === '') {
-    //pristine.reset();
+
+    pristine.reset();
     return true;
   }
 
   if(hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag))){
 
-    //pristine.reset();
+    pristine.reset();
     return true;
   }
 
@@ -52,7 +52,7 @@ const validateHashtagsLength = (value) => {
 
   if(hashtags.every((hashtag) => hashtag.length <= HASTAG_MAX_LENGTH)){
 
-    //pristine.reset();
+    pristine.reset();
     return true;
   }
 
@@ -68,7 +68,7 @@ const validateHashtagsUnique = (value) => {
 
   if(uniqueHashtags.size === hashtags.length){
 
-    //pristine.reset();
+    pristine.reset();
     return true;
   }
 
@@ -83,7 +83,7 @@ const validateHashtagsCount = (value) => {
 
   if(hashtags.length <= HASTAGS_MAX_COUNT){
 
-    //pristine.reset();
+    pristine.reset();
     return true;
 
   }
@@ -103,7 +103,7 @@ const valueInputComment = (value) => {
 
   if(value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX){
 
-    //pristine.reset();
+    pristine.reset();
     return true;
   }
   return false;
@@ -126,7 +126,6 @@ const onFileChange = (evt) => {
 
 //Закрытыие формы ввода
 const onFormClose = () => {
-
 
   levelEffects.classList.add('hidden');
   slider.classList.add('hidden');
@@ -160,9 +159,11 @@ formDownloadPictyre.addEventListener('submit', (evt) => {
 
     return evt.preventDefault();
   }
-  //pristine.reset();
-  buttonSendForm.disabled = true;
+
   postDatasFormToServer(formData);
+  pristine.reset();
+  buttonSendForm.disabled = true;
+
 });
 
 //запрет закрытия поля воода при фокусе

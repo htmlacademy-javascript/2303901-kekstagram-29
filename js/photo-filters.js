@@ -94,7 +94,7 @@ const onAddFilterGiscussed = (photos) => {
 };
 
 const addSortToPhotos = (photos) => {
-  paintAllPictures(photos);
+  //paintAllPictures(photos);
   buttonFilterDefauit.addEventListener('click', debounce(() => onAddFilterDefault(photos), TIME_OUT_DELAY));
   buttonFilterRandom.addEventListener('click', debounce(() => onAddFilterRandom(photos), TIME_OUT_DELAY));
   buttonFilterGiscussed.addEventListener('click', debounce(() => onAddFilterGiscussed(photos), TIME_OUT_DELAY));

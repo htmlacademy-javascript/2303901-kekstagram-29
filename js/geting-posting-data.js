@@ -1,7 +1,8 @@
 
-import {onFormClose} from './form-create-picture.js';
+import {onFormClose, resetPristine} from './form-create-picture.js';
 import {addSortToPhotos} from './photo-filters.js';
-import {resetPristine} from './form-create-picture.js';
+import {paintAllPictures} from './thumbnail-rendering.js';
+
 //сообщение об ошибке
 const buttonSendForm = document.querySelector('.img-upload__submit');
 const errorMessageTemplate = document.querySelector('#error').content;
@@ -104,7 +105,7 @@ const getPicturesFromServer = () => {
     })
     .then((datasPictures) => {
 
-
+      paintAllPictures(datasPictures);
       addSortToPhotos(datasPictures);
     })
     .then(() => {

@@ -89,6 +89,7 @@ const updateFilterStyle = (value) => {
     const selectedFilter = filters[value];
     const filterScaleValue = `${selectedFilter.name}(${selectedFilter.default}${selectedFilter.unit})`;
     changeViewPicture.style.filter = filterScaleValue;
+    inputEffects.value = filterScaleValue;
   }
 };
 
@@ -125,6 +126,7 @@ const getElementStyle = () => {
     changeViewPicture.style.filter = filterScaleValue;
     iconEffects.value = selectedFilter.name;
     inputEffects.value = `${values[handle]}${selectedFilter.unit}`;
+
   });
 };
 
