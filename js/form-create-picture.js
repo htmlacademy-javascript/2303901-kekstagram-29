@@ -149,6 +149,7 @@ const onFormCloseEscape = (evt) => {
   }
 };
 
+
 //блокировка отправки формы
 formDownloadPictyre.addEventListener('submit', (evt) => {
 
@@ -187,5 +188,5 @@ inputHeshTeg.addEventListener('blur', onFocusOut);
 inputComment.addEventListener('focus', onFocus);
 inputComment.addEventListener('blur', onFocusOut);
 
-export {onFormClose, resetPristine};
+export {onFormClose, resetPristine, onFormCloseEscape};
 

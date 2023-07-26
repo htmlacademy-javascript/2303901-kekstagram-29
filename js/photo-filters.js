@@ -62,6 +62,7 @@ const onAddFilterRandom = (photos) => {
   });
 
   const selectedPhotos = filterRandom(photos, 10);
+
   paintAllPictures(selectedPhotos);
   buttonFilterRandom.classList.add('img-filters__button--active');
   buttonFilterDefauit.classList.remove('img-filters__button--active');
@@ -77,9 +78,11 @@ const filterGiscussed = (photos) => {
 
   const sortedPictures = [...photos].slice().sort((a, b) => b.comments.length - a.comments.length);
   paintAllPictures(sortedPictures);
+
+  buttonFilterGiscussed.classList.add('img-filters__button--active');
   buttonFilterDefauit.classList.remove('img-filters__button--active');
   buttonFilterRandom.classList.remove('img-filters__button--active');
-  buttonFilterGiscussed.classList.add('img-filters__button--active');
+
 };
 
 const onAddFilterGiscussed = (photos) => {

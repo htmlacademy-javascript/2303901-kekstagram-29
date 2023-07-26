@@ -1,5 +1,5 @@
 
-import {onFormClose, resetPristine} from './form-create-picture.js';
+import {onFormClose, resetPristine, onFormCloseEscape} from './form-create-picture.js';
 import {addSortToPhotos} from './photo-filters.js';
 import {paintAllPictures} from './thumbnail-rendering.js';
 
@@ -15,18 +15,22 @@ const showFilters = document.querySelector('.img-filters');
 const showErrorMessage = () => {
 
   tagBody.insertAdjacentElement('beforeend', errorMessage);
+  document.removeEventListener('keydown', onFormCloseEscape);
+
 };
 
 const closeErrorWindowButton = (evt) => {
 
   evt.preventDefault();
   errorMessage.remove();
+  document.addEventListener('keydown', onFormCloseEscape);
 };
 
 const closeErrorWindowEck = (evt) => {
 
-  if (evt.key === 'Escape' && document.documentElement.classList.contains('error')) {
+  if (evt.key === 'Escape') {
     closeErrorWindowButton(evt);
+    evt.stopPropagation();
   }
 };
 
@@ -154,4 +158,3 @@ const postDatasFormToServer = (formData) => {
 
 
 export {postDatasFormToServer};
-
