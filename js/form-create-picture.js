@@ -3,6 +3,7 @@ import {postDatasFormToServer} from './geting-posting-data.js';
 const HASTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASTAG_MAX_LENGTH = 20;
 const HASTAGS_MAX_COUNT = 5;
+const FIELS_LENGTH = 0;
 const fileInput = document.querySelector('.img-upload__input');
 const formDownloadPictyre = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -23,25 +24,13 @@ const pristine = new Pristine(formDownloadPictyre,{
 });
 
 const resetPristine = () =>{
-  pristine.destroy();
+  pristine.reset();
 } ;
 
 const validateHashtags = (value) => {
   const hashtags = value.split(' ');
 
-  if (value === '') {
-
-    pristine.reset();
-    return true;
-  }
-
-  if(hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag))){
-
-    pristine.reset();
-    return true;
-  }
-
-  return false;
+  return (value === '' || hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag)));
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtags, 'Хэштеги содержат недопустимые символы');
@@ -50,13 +39,8 @@ pristine.addValidator(inputHeshTeg, validateHashtags, 'Хэштеги содер
 const validateHashtagsLength = (value) => {
   const hashtags = value.split(' ');
 
-  if(hashtags.every((hashtag) => hashtag.length <= HASTAG_MAX_LENGTH)){
+  return (hashtags.every((hashtag) => hashtag.length <= HASTAG_MAX_LENGTH));
 
-    pristine.reset();
-    return true;
-  }
-
-  return false;
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsLength, 'Длина хэштега не может превышать 20 символов.');
@@ -66,13 +50,8 @@ const validateHashtagsUnique = (value) => {
   const hashtags = value.toLowerCase().split(' ');
   const uniqueHashtags = new Set(hashtags);
 
-  if(uniqueHashtags.size === hashtags.length){
+  return (uniqueHashtags.size === hashtags.length);
 
-    pristine.reset();
-    return true;
-  }
-
-  return false;
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsUnique, 'Все хэш тэги должны быть уникальными');
@@ -81,13 +60,7 @@ pristine.addValidator(inputHeshTeg, validateHashtagsUnique, 'Все хэш тэ�
 const validateHashtagsCount = (value) => {
   const hashtags = value.split(' ');
 
-  if(hashtags.length <= HASTAGS_MAX_COUNT){
-
-    pristine.reset();
-    return true;
-
-  }
-  return false;
+  return (hashtags.length <= HASTAGS_MAX_COUNT);
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsCount, 'Максимальное количество хэш тэгов 5');
@@ -101,12 +74,8 @@ const valueInputComment = (value) => {
     MAX: 140,
   };
 
-  if(value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX){
+  return (value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX);
 
-    pristine.reset();
-    return true;
-  }
-  return false;
 };
 
 pristine.addValidator(inputComment, valueInputComment , 'не меньше двух не больше 140');
@@ -116,7 +85,7 @@ const onFileChange = (evt) => {
 
   evt.preventDefault();
 
-  if(fileInput.value.length > 0) {
+  if(fileInput.value.length > FIELS_LENGTH) {
 
     overlay.classList.remove('hidden');
     body.classList.add('modal-open');
@@ -136,7 +105,7 @@ const onFormClose = () => {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   previewImage.style = '';
-  previewImage.style = 'grayscale(1)';
+
 };
 
 //Закрытыие формы ввода esc

@@ -3,49 +3,50 @@ const changeViewPicture = document.querySelector('.img-upload__preview');
 const iconEffects = document.querySelectorAll('.effects__radio');
 const inputEffects = document.querySelector('.effect-level__value');
 const levelEffects = document.querySelector('.img-upload__effect-level ');
+const previewImage = document.querySelector('.img-upload__preview').querySelector('img');
 
 const filters = {
   chrome: {
     name: 'grayscale',
-    default: '0.5',
+    default: '1',
     unit: '',
-    start: 0.5,
+    start: 1,
     min: 0,
     max: 1,
     step: 0.1
   },
   sepia: {
     name: 'sepia',
-    default: '0.5',
+    default: '1',
     unit: '',
-    start: 0.5,
+    start: 1,
     min: 0,
     max: 1,
     step: 0.1
   },
   marvin: {
     name: 'invert',
-    default: '50',
+    default: '100',
     unit: '%',
-    start: 50,
+    start: 100,
     min: 0,
     max: 100,
     step: 1
   },
   phobos: {
     name: 'blur',
-    default: '1.5',
+    default: '3',
     unit: 'px',
-    start: 1.5,
+    start: 3,
     min: 0,
     max: 3,
     step: 0.1
   },
   heat: {
     name: 'brightness',
-    default: '1.5',
+    default: '3',
     unit: '',
-    start: 1.5,
+    start: 3,
     min: 0,
     max: 3,
     step: 0.1
@@ -77,19 +78,22 @@ const updateSlider = (value) => {
 };
 
 const updateFilterStyle = (value) => {
+  const selectedFilter = filters[value];
+  const filterScaleValue = `${selectedFilter.name}(${selectedFilter.default}${selectedFilter.unit})`;
 
   if (value === 'none') {
     levelEffects.classList.add('hidden');
     slider.classList.add('hidden');
     changeViewPicture.style.filter = 'none';
+    previewImage.style.filter = 'none';
 
-  } else {
+  } else{
+
+    previewImage.style.filter = filterScaleValue;
+    changeViewPicture.style.filter = filterScaleValue;
     levelEffects.classList.remove('hidden');
     slider.classList.remove('hidden');
-    const selectedFilter = filters[value];
-    const filterScaleValue = `${selectedFilter.name}(${selectedFilter.default}${selectedFilter.unit})`;
-    changeViewPicture.style.filter = filterScaleValue;
-    inputEffects.value = filterScaleValue;
+
   }
 };
 
@@ -115,6 +119,7 @@ const getElementStyle = () => {
       targetValue = evt.target.value;
       updateSlider(targetValue);
       updateFilterStyle(targetValue);
+
     });
   });
 
@@ -123,6 +128,7 @@ const getElementStyle = () => {
     const selectedFilter = filters[targetValue];
     const filterScaleValue = `${selectedFilter.name}(${values[handle]}${selectedFilter.unit})`;
 
+    previewImage.style.filter = filterScaleValue;
     changeViewPicture.style.filter = filterScaleValue;
     iconEffects.value = selectedFilter.name;
     inputEffects.value = `${values[handle]}${selectedFilter.unit}`;
