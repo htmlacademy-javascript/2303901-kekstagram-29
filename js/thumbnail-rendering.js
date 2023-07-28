@@ -5,7 +5,7 @@ const THEMPLATE_PICTURE = document.querySelector('#picture').content;
 const THEMPLATE_PICTURE_TEG = THEMPLATE_PICTURE.querySelector('.picture');
 
 //функция создания элемента разметки
-const createBlockPhoto = ({url, discription, likes, comments, id}) => {
+const createBlockPhoto = ({url, description, likes, comments, id}) => {
 
   const copyTemplateTeg = THEMPLATE_PICTURE_TEG.cloneNode(true);
   const pictureImg = copyTemplateTeg.querySelector('.picture__img');
@@ -14,7 +14,7 @@ const createBlockPhoto = ({url, discription, likes, comments, id}) => {
 
   pictureImg.id = id;
   pictureImg.src = url;
-  pictureImg.alt = discription;
+  pictureImg.alt = description;
   pictureLikes.textContent = likes;
   pictureComments.textContent = comments.length;
 
@@ -23,6 +23,7 @@ const createBlockPhoto = ({url, discription, likes, comments, id}) => {
 
 //функция отрисовки которая собирает коллекцию фото с описаниями
 const paintAllPictures = (valuePhoto) => {
+
   //места вставки клона на страницу
   const addToHtml = document.querySelector('.pictures');
   //создание фрагмента
