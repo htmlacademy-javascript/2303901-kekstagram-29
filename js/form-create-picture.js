@@ -28,11 +28,13 @@ const resetPristine = () =>{
 } ;
 
 const validateHashtags = (value) => {
-  const hashtags = value.split(' ');
+  const hashtags = value.trim().split(/\s+/);
 
-  return (value === '' || hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag)));
+  return (
+    value === '' ||
+    hashtags.every((hashtag) => HASTAG_REGEX.test(hashtag) && hashtag.length <= HASTAG_MAX_LENGTH)
+  );
 };
-
 pristine.addValidator(inputHeshTeg, validateHashtags, 'Хэштеги содержат недопустимые символы');
 
 
@@ -47,20 +49,19 @@ pristine.addValidator(inputHeshTeg, validateHashtagsLength, 'Длина хэшт
 
 
 const validateHashtagsUnique = (value) => {
-  const hashtags = value.toLowerCase().split(' ');
+  const hashtags = value.trim().split(/\s+/).filter((hashtag) => hashtag !== '').map((hashtag) => hashtag.toLowerCase());
   const uniqueHashtags = new Set(hashtags);
 
-  return (uniqueHashtags.size === hashtags.length);
-
+  return (value === '' || uniqueHashtags.size === hashtags.length);
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsUnique, 'Все хэш тэги должны быть уникальными');
 
 
 const validateHashtagsCount = (value) => {
-  const hashtags = value.split(' ');
+  const hashtags = value.trim().split(/\s+/).filter((hashtag) => hashtag !== '');
 
-  return (hashtags.length <= HASTAGS_MAX_COUNT);
+  return (value === '' || hashtags.length <= HASTAGS_MAX_COUNT);
 };
 
 pristine.addValidator(inputHeshTeg, validateHashtagsCount, 'Максимальное количество хэш тэгов 5');
