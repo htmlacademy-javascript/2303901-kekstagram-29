@@ -1,9 +1,9 @@
 const inputLoadPicture = document.querySelector('.img-upload__start input[type=file]');
 const adressImage = document.querySelector('.img-upload__preview').querySelector('img');
 const backgroundImageFilters = document.querySelectorAll('.effects__preview');
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const FILE_TYPES = ['.jpg', '.jpeg', '.png'];
 
-const addLoadingImage = () => {
+const uploadedImage = () => {
 
   const file = inputLoadPicture.files[0];
   const fileName = file.name.toLowerCase();
@@ -21,6 +21,5 @@ const addLoadingImage = () => {
   }
 };
 
-
-inputLoadPicture.addEventListener('change', addLoadingImage);
+inputLoadPicture.addEventListener('change', uploadedImage);
 

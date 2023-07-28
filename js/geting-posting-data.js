@@ -37,11 +37,13 @@ const closeErrorWindowEck = (evt) => {
 const closeErrorWindowClick = (evt) => {
   evt.preventDefault();
 
-  if(!placeClickToClose.contains(evt.target)){
+  if(placeClickToClose.contains(evt.target)){
 
-    evt.stopPropagation();
-    closeErrorWindowButton(evt);
+    return;
   }
+  evt.stopPropagation();
+  closeErrorWindowButton(evt);
+
 };
 
 errorMessage.addEventListener('click', closeErrorWindowClick);
@@ -49,23 +51,23 @@ errorButton.addEventListener('click', closeErrorWindowButton);
 document.addEventListener('keydown', closeErrorWindowEck);
 
 //сообщение успешной отправки
-const trueSendMessageTemplate = document.querySelector('#success').content;
-const trueSendMessage = trueSendMessageTemplate.querySelector('.success');
-const buttonCloseSuccess = trueSendMessage.querySelector('.success__button');
-const plaseClickToSuccessInner = trueSendMessage.querySelector('.success__inner');
+const successfulSendMessageTemplate = document.querySelector('#success').content;
+const successfulSendMessage = successfulSendMessageTemplate.querySelector('.success');
+const buttonCloseSuccess = successfulSendMessage.querySelector('.success__button');
+const plaseClickToSuccessInner = successfulSendMessage.querySelector('.success__inner');
 
 const showSuccessWindow = () => {
-  tagBody.insertAdjacentElement('beforeend', trueSendMessage);
+  tagBody.insertAdjacentElement('beforeend', successfulSendMessage);
 };
 
 const closeSuccessWindow = () => {
 
-  trueSendMessage.remove();
+  successfulSendMessage.remove();
 };
 
 const closeSuccessWindowEck = (evt) => {
 
-  if (evt.key === 'Escape' && trueSendMessage.classList.contains('success')) {
+  if (evt.key === 'Escape' && successfulSendMessage.classList.contains('success')) {
     closeSuccessWindow(evt);
   }
 };
@@ -73,15 +75,17 @@ const closeSuccessWindowEck = (evt) => {
 const closeSuccessWindowClisk = (evt) => {
   evt.preventDefault();
 
-  if(!plaseClickToSuccessInner.contains(evt.target)){
+  if(plaseClickToSuccessInner.contains(evt.target)){
 
-    evt.stopPropagation();
-    closeSuccessWindow(evt);
+    return;
   }
+
+  evt.stopPropagation();
+  closeSuccessWindow(evt);
 };
 
 buttonCloseSuccess.addEventListener('click', closeSuccessWindow);
-trueSendMessage.addEventListener('click', closeSuccessWindowClisk);
+successfulSendMessage.addEventListener('click', closeSuccessWindowClisk);
 document.addEventListener('keydown', closeSuccessWindowEck);
 
 const messageErrorDownload = () => {
@@ -136,7 +140,7 @@ const postDatasFormToServer = (formData) => {
 
     .then((response) => {
 
-      if (response.ok === true) {
+      if (response.ok) {
 
 
         return onFormClose();

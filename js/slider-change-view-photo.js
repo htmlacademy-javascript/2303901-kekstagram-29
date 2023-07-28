@@ -1,5 +1,4 @@
 const slider = document.querySelector('.effect-level__slider');
-const changeViewPicture = document.querySelector('.img-upload__preview');
 const iconEffects = document.querySelectorAll('.effects__radio');
 const inputEffects = document.querySelector('.effect-level__value');
 const levelEffects = document.querySelector('.img-upload__effect-level ');
@@ -84,16 +83,14 @@ const updateFilterStyle = (value) => {
   if (value === 'none') {
     levelEffects.classList.add('hidden');
     slider.classList.add('hidden');
-    changeViewPicture.style.filter = 'none';
+
     previewImage.style.filter = 'none';
 
   } else{
 
     previewImage.style.filter = filterScaleValue;
-    changeViewPicture.style.filter = filterScaleValue;
     levelEffects.classList.remove('hidden');
     slider.classList.remove('hidden');
-
   }
 };
 
@@ -119,7 +116,6 @@ const getElementStyle = () => {
       targetValue = evt.target.value;
       updateSlider(targetValue);
       updateFilterStyle(targetValue);
-
     });
   });
 
@@ -129,10 +125,8 @@ const getElementStyle = () => {
     const filterScaleValue = `${selectedFilter.name}(${values[handle]}${selectedFilter.unit})`;
 
     previewImage.style.filter = filterScaleValue;
-    changeViewPicture.style.filter = filterScaleValue;
     iconEffects.value = selectedFilter.name;
     inputEffects.value = `${values[handle]}${selectedFilter.unit}`;
-
   });
 };
 

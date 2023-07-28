@@ -5,20 +5,20 @@ const HASTAG_MAX_LENGTH = 20;
 const HASTAGS_MAX_COUNT = 5;
 const FIELS_LENGTH = 0;
 const fileInput = document.querySelector('.img-upload__input');
-const formDownloadPictyre = document.querySelector('.img-upload__form');
+const formDownloadPicture = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
-const buttonCloseForm = formDownloadPictyre.querySelector('.img-upload__cancel');
-const overlay = formDownloadPictyre.querySelector('.img-upload__overlay');
-const inputHeshTeg = formDownloadPictyre.querySelector('.text__hashtags');
-const inputComment = formDownloadPictyre.querySelector('.text__description');
+const buttonCloseForm = formDownloadPicture.querySelector('.img-upload__cancel');
+const overlay = formDownloadPicture.querySelector('.img-upload__overlay');
+const inputHeshTeg = formDownloadPicture.querySelector('.text__hashtags');
+const inputComment = formDownloadPicture.querySelector('.text__description');
 const slider = document.querySelector('.effect-level__slider');
 const levelEffects = document.querySelector('.img-upload__effect-level ');
-const previewImage = document.querySelector('.img-upload__preview');
-const buttonSendForm = document.querySelector('.img-upload__submit');
 
+const buttonSendForm = document.querySelector('.img-upload__submit');
+const previewImage = document.querySelector('.img-upload__preview').querySelector('img');
 
 // подключение пристин
-const pristine = new Pristine(formDownloadPictyre,{
+const pristine = new Pristine(formDownloadPicture,{
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text'
 });
@@ -101,12 +101,11 @@ const onFormClose = () => {
   slider.classList.add('hidden');
   slider.noUiSlider.reset();
   pristine.reset();
-  formDownloadPictyre.reset();
+  formDownloadPicture.reset();
   buttonSendForm.disabled = false;
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   previewImage.style = '';
-
 };
 
 //Закрытыие формы ввода esc
@@ -121,20 +120,17 @@ const onFormCloseEscape = (evt) => {
 
 
 //блокировка отправки формы
-formDownloadPictyre.addEventListener('submit', (evt) => {
+formDownloadPicture.addEventListener('submit', (evt) => {
+  evt.preventDefault();
 
   const formData = new FormData(evt.target);
 
-  evt.preventDefault();
-  if (!pristine.validate(inputHeshTeg) || !pristine.validate(inputComment)) {
+  if (pristine.validate(inputHeshTeg) && pristine.validate(inputComment)) {
 
-    return evt.preventDefault();
+    postDatasFormToServer(formData);
+    pristine.reset();
+    buttonSendForm.disabled = true;
   }
-
-  postDatasFormToServer(formData);
-  pristine.reset();
-  buttonSendForm.disabled = true;
-
 });
 
 //запрет закрытия поля воода при фокусе
