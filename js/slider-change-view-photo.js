@@ -62,7 +62,6 @@ const filters = {
 };
 
 const updateSlider = (value) => {
-
   const selectedFilter = filters[value];
 
   slider.noUiSlider.updateOptions({
@@ -83,11 +82,8 @@ const updateFilterStyle = (value) => {
   if (value === 'none') {
     levelEffects.classList.add('hidden');
     slider.classList.add('hidden');
-
     previewImage.style.filter = 'none';
-
-  } else{
-
+  }else {
     previewImage.style.filter = filterScaleValue;
     levelEffects.classList.remove('hidden');
     slider.classList.remove('hidden');
@@ -95,11 +91,11 @@ const updateFilterStyle = (value) => {
 };
 
 const getElementStyle = () => {
-
   let targetValue = 'none';
 
   levelEffects.classList.add('hidden');
   slider.classList.add('hidden');
+
   noUiSlider.create(slider, {
     start: filters[targetValue].start,
     step: filters[targetValue].step,
@@ -112,7 +108,6 @@ const getElementStyle = () => {
   iconEffects.forEach((element) => {
 
     element.addEventListener('click', (evt) => {
-
       targetValue = evt.target.value;
       updateSlider(targetValue);
       updateFilterStyle(targetValue);
@@ -120,7 +115,6 @@ const getElementStyle = () => {
   });
 
   slider.noUiSlider.on('update', (values, handle) => {
-
     const selectedFilter = filters[targetValue];
     const filterScaleValue = `${selectedFilter.name}(${values[handle]}${selectedFilter.unit})`;
 
@@ -130,6 +124,5 @@ const getElementStyle = () => {
   });
 };
 
-getElementStyle();
-
+export{getElementStyle};
 

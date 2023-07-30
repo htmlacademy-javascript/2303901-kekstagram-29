@@ -1,17 +1,13 @@
-import {getDiscriptionBigPicture} from './open-close-picture.js';
+import {getDescriptionBigPicture} from './open-close-picture.js';
 
-//поиск клона шаблона
-const THEMPLATE_PICTURE = document.querySelector('#picture').content;
-const THEMPLATE_PICTURE_TEG = THEMPLATE_PICTURE.querySelector('.picture');
+const TEMPLATE_PICTURE = document.querySelector('#picture').content;
+const TEMPLATE_PICTURE_TEG = TEMPLATE_PICTURE.querySelector('.picture');
 
-//функция создания элемента разметки
 const createBlockPhoto = ({url, description, likes, comments, id}) => {
-
-  const copyTemplateTeg = THEMPLATE_PICTURE_TEG.cloneNode(true);
+  const copyTemplateTeg = TEMPLATE_PICTURE_TEG.cloneNode(true);
   const pictureImg = copyTemplateTeg.querySelector('.picture__img');
   const pictureComments = copyTemplateTeg.querySelector('.picture__comments');
   const pictureLikes = copyTemplateTeg.querySelector('.picture__likes');
-
   pictureImg.id = id;
   pictureImg.src = url;
   pictureImg.alt = description;
@@ -21,22 +17,16 @@ const createBlockPhoto = ({url, description, likes, comments, id}) => {
   return copyTemplateTeg;
 };
 
-//функция отрисовки которая собирает коллекцию фото с описаниями
 const paintAllPictures = (valuePhoto) => {
-
-  //места вставки клона на страницу
   const addToHtml = document.querySelector('.pictures');
-  //создание фрагмента
   const fragmentPhoto = document.createDocumentFragment();
 
   valuePhoto.forEach((elementPhoto) => {
-
     fragmentPhoto.append(createBlockPhoto(elementPhoto));
   });
 
   addToHtml.appendChild(fragmentPhoto);
-
-  getDiscriptionBigPicture(valuePhoto);
+  getDescriptionBigPicture(valuePhoto);
 };
 
 export{paintAllPictures};
