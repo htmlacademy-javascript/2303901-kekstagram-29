@@ -14,4 +14,3 @@ const debounce = (callback, timeoutDelay) => {
 };
 
 export {getRandomInteger, debounce};
-
