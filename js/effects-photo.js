@@ -123,5 +123,4 @@ const getElementStyle = () => {
   });
 };
 
-export{getElementStyle};
-
+getElementStyle();

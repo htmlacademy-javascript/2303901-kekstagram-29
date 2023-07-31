@@ -1,4 +1,4 @@
-import {getDescriptionBigPicture} from './open-close-picture.js';
+import {handleClickSmallMiniature} from './open-close-picture.js';
 
 const templatePicture = document.querySelector('#picture').content;
 const templatePictureTeg = templatePicture.querySelector('.picture');
@@ -8,6 +8,7 @@ const createBlockPhoto = ({url, description, likes, comments, id}) => {
   const pictureImg = copyTemplateTeg.querySelector('.picture__img');
   const pictureComments = copyTemplateTeg.querySelector('.picture__comments');
   const pictureLikes = copyTemplateTeg.querySelector('.picture__likes');
+
   pictureImg.id = id;
   pictureImg.src = url;
   pictureImg.alt = description;
@@ -26,7 +27,7 @@ const paintAllPictures = (valuePhoto) => {
   });
 
   addToHtml.appendChild(fragmentPhoto);
-  getDescriptionBigPicture(valuePhoto);
+  handleClickSmallMiniature(valuePhoto);
 };
 
 export{paintAllPictures};

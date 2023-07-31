@@ -8,16 +8,15 @@ const buttonFilterDefault = document.querySelector('#filter-default');
 const buttonFilterRandom = document.querySelector('#filter-random');
 const buttonFilterDiscussed = document.querySelector('#filter-discussed');
 
-
 const filterDefault = (photos) => {
   const clear = document.querySelectorAll('.picture');
 
   clear.forEach((element) => {
     element.remove();
   });
+
   paintAllPictures(photos);
 };
-
 
 const onAddFilterDefault = (photos) => {
   const clear = document.querySelectorAll('.picture');
@@ -25,9 +24,9 @@ const onAddFilterDefault = (photos) => {
   clear.forEach((element) => {
     element.remove();
   });
+
   filterDefault(photos);
 };
-
 
 const onButtonActiveDefault = () => {
   buttonFilterDefault.classList.add('img-filters__button--active');
@@ -35,36 +34,33 @@ const onButtonActiveDefault = () => {
   buttonFilterDiscussed.classList.remove('img-filters__button--active');
 };
 
-
 const filterRandom = (array, count) => {
   const clear = document.querySelectorAll('.picture');
+  const selectedElements = new Set();
+  const minSize = Math.min(count, array.length);
 
   clear.forEach((element) => {
     element.remove();
   });
 
-  const selectedElements = new Set();
-  const countValue = Math.min(count, array.length);
-
-  while (selectedElements.size < countValue) {
+  while (selectedElements.size < minSize) {
     const randomIndex = getRandomInteger(0, array.length - 1);
     selectedElements.add(array[randomIndex]);
   }
-  return selectedElements;
-};
 
+  return Array.from(selectedElements);
+};
 
 const onAddFilterRandom = (photos) => {
   const clear = document.querySelectorAll('.picture');
+  const selectedPhotos = filterRandom(photos,VALUE_RANDOM_PHOTO);
 
   clear.forEach((element) => {
     element.remove();
   });
 
-  const selectedPhotos = filterRandom(photos,VALUE_RANDOM_PHOTO);
   paintAllPictures(selectedPhotos);
 };
-
 
 const onButtonActiveRandom = () => {
   buttonFilterRandom.classList.add('img-filters__button--active');
@@ -72,18 +68,16 @@ const onButtonActiveRandom = () => {
   buttonFilterDiscussed.classList.remove('img-filters__button--active');
 };
 
-
 const filterDiscussed = (photos) => {
   const clear = document.querySelectorAll('.picture');
+  const sortedPictures = [...photos].slice().sort((a, b) => b.comments.length - a.comments.length);
 
   clear.forEach((element) => {
     element.remove();
   });
 
-  const sortedPictures = [...photos].slice().sort((a, b) => b.comments.length - a.comments.length);
   paintAllPictures(sortedPictures);
 };
-
 
 const onAddFilterDiscussed = (photos) => {
   const clear = document.querySelectorAll('.picture');

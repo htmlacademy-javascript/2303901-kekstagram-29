@@ -1,5 +1,5 @@
 
-import {onFormClose, resetPristine, onFormCloseEscape} from './photo-description-validation.js';
+import {onFormClose, resetPristine, onFormCloseEscape} from './validation-photo-description.js';
 import {addSortToPhotos} from './photo-filters.js';
 import {paintAllPictures} from './thumbnail.js';
 
@@ -20,8 +20,7 @@ const showErrorMessage = () => {
   document.removeEventListener('keydown', onFormCloseEscape);
 };
 
-const closeErrorWindowButton = (evt) => {
-  evt.preventDefault();
+const closeErrorWindowButton = () => {
   errorMessage.remove();
   document.addEventListener('keydown', onFormCloseEscape);
 };
@@ -33,8 +32,6 @@ const closeErrorWindowEck = (evt) => {
 };
 
 const closeErrorWindowClick = (evt) => {
-  evt.preventDefault();
-
   if(placeClickToClose.contains(evt.target)) {
     return;
   }
@@ -60,10 +57,7 @@ const closeSuccessWindowEck = (evt) => {
 };
 
 const closeSuccessWindowClick = (evt) => {
-  evt.preventDefault();
-
   if(placeClickToSuccessInner.contains(evt.target)){
-
     return;
   }
   closeSuccessWindow(evt);
@@ -131,4 +125,4 @@ const postDatesFormToServer = (formData) => {
     });
 };
 
-export {postDatesFormToServer,getPicturesFromServer};
+export {postDatesFormToServer, getPicturesFromServer};

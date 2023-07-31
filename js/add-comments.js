@@ -1,5 +1,5 @@
-const allCommentsForBigPicture = document.querySelector('.social__comments');
 const START_INDEX_COMMENTS = 0;
+const allCommentsForBigPicture = document.querySelector('.social__comments');
 
 const createBlockComment = ({avatar, message, name}) => {
   const oneComment = document.createElement('li');
@@ -25,6 +25,7 @@ const addIncomingComments = (comments) => {
   comments.forEach((comment) => {
     fragmentComments.append(createBlockComment(comment));
   });
+
   commentsToPhoto.append(fragmentComments);
 };
 
@@ -40,6 +41,7 @@ const createCounter = () => {
     allCommentsForBigPicture.innerHTML = '';
     addIncomingComments(commentsToPhoto.slice(START_INDEX_COMMENTS, countShowComments));
   };
+
   return {closeCountComments, showFiveComments};
 };
 
