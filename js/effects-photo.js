@@ -106,7 +106,6 @@ const getElementStyle = () => {
   });
 
   iconEffects.forEach((element) => {
-
     element.addEventListener('click', (evt) => {
       targetValue = evt.target.value;
       updateSlider(targetValue);
@@ -124,5 +123,4 @@ const getElementStyle = () => {
   });
 };
 
-export{getElementStyle};
-
+getElementStyle();
