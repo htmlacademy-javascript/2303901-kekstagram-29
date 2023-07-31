@@ -1,4 +1,4 @@
-import {postDatesFormToServer} from './getting-posting-data.js';
+import {postDatesFormToServer} from './working-with-server.js';
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_MAX_LENGTH = 20;
@@ -94,7 +94,6 @@ const onFormClose = () => {
 };
 
 const onFormCloseEscape = (evt) => {
-
   if(evt.key === 'Escape'){
     evt.stopPropagation();
     onFormClose(evt);

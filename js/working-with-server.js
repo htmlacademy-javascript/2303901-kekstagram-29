@@ -1,7 +1,7 @@
 
-import {onFormClose, resetPristine, onFormCloseEscape} from './form-create-picture.js';
+import {onFormClose, resetPristine, onFormCloseEscape} from './photo-description-validation.js';
 import {addSortToPhotos} from './photo-filters.js';
-import {paintAllPictures} from './thumbnail-rendering.js';
+import {paintAllPictures} from './thumbnail.js';
 
 const buttonSendForm = document.querySelector('.img-upload__submit');
 const errorMessageTemplate = document.querySelector('#error').content;
@@ -27,10 +27,8 @@ const closeErrorWindowButton = (evt) => {
 };
 
 const closeErrorWindowEck = (evt) => {
-
   if (evt.key === 'Escape') {
     closeErrorWindowButton(evt);
-    evt.stopPropagation();
   }
 };
 
@@ -38,10 +36,8 @@ const closeErrorWindowClick = (evt) => {
   evt.preventDefault();
 
   if(placeClickToClose.contains(evt.target)) {
-
     return;
   }
-  evt.stopPropagation();
   closeErrorWindowButton(evt);
 };
 
@@ -49,7 +45,6 @@ errorMessage.addEventListener('click', closeErrorWindowClick);
 errorButton.addEventListener('click', closeErrorWindowButton);
 document.addEventListener('keydown', closeErrorWindowEck);
 
-//сообщение успешной отправки
 const showSuccessWindow = () => {
   tagBody.insertAdjacentElement('beforeend', successfulSendMessage);
 };
@@ -59,7 +54,6 @@ const closeSuccessWindow = () => {
 };
 
 const closeSuccessWindowEck = (evt) => {
-
   if (evt.key === 'Escape' && successfulSendMessage.classList.contains('success')) {
     closeSuccessWindow();
   }
@@ -72,7 +66,6 @@ const closeSuccessWindowClick = (evt) => {
 
     return;
   }
-  evt.stopPropagation();
   closeSuccessWindow(evt);
 };
 
@@ -97,10 +90,10 @@ const getPicturesFromServer = () => {
     credentials: 'same-origin'
   })
     .then((response) => {
-
       if (response.ok) {
         return response.json();
       }
+
       throw new Error('Network response was not ok.');
     })
     .then((datesPictures) => {
@@ -122,11 +115,10 @@ const postDatesFormToServer = (formData) => {
     body: formData
   })
     .then((response) => {
-
       if (response.ok) {
-
         return onFormClose();
       }
+
       throw new Error('Network response was not ok.');
     })
     .then(() => {

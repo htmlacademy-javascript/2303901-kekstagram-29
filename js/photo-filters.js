@@ -1,6 +1,6 @@
 
 import {getRandomInteger, debounce} from './util.js';
-import {paintAllPictures} from './thumbnail-rendering.js';
+import {paintAllPictures} from './thumbnail.js';
 
 const TIME_OUT_DELAY = 500;
 const VALUE_RANDOM_PHOTO = 10;
@@ -44,14 +44,13 @@ const filterRandom = (array, count) => {
   });
 
   const selectedElements = new Set();
-  count = Math.min(count, array.length);
+  const countValue = Math.min(count, array.length);
 
-  while (selectedElements.size < count) {
+  while (selectedElements.size < countValue) {
     const randomIndex = getRandomInteger(0, array.length - 1);
     selectedElements.add(array[randomIndex]);
   }
-
-  return Array.from(selectedElements);
+  return selectedElements;
 };
 
 

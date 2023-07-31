@@ -51,11 +51,11 @@ const setupOnShowBigPicture = () => {
   let onShowCommentsClick;
 
   const onShowBigPictures = (arrayPhoto) => {
-    const SMALL_PICTURES = document.querySelectorAll('.picture');
+    const smallPictures = document.querySelectorAll('.picture');
     const buttonShowComments = document.querySelector('.comments-loader');
 
     if (onSmallPictureClick) {
-      SMALL_PICTURES.forEach((clickToSmallPhoto) => {
+      smallPictures.forEach((clickToSmallPhoto) => {
         clickToSmallPhoto.removeEventListener('click', onSmallPictureClick);
       });
     }
@@ -68,7 +68,6 @@ const setupOnShowBigPicture = () => {
       evt.preventDefault();
 
       arrayPhoto.forEach((element) => {
-
         if (element.id === +evt.target.id) {
           fillBigPhotoDescriptions(element);
           showFiveComments(element.comments);
@@ -82,7 +81,6 @@ const setupOnShowBigPicture = () => {
       evt.preventDefault();
 
       arrayPhoto.forEach((element) => {
-
         if (+element.id === +addButtonShowComments.id) {
           showFiveComments(element.comments);
           updateCommentCount(element.comments);
@@ -90,13 +88,12 @@ const setupOnShowBigPicture = () => {
       });
     };
 
-    SMALL_PICTURES.forEach((clickToSmallPhoto) => {
+    smallPictures.forEach((clickToSmallPhoto) => {
       clickToSmallPhoto.addEventListener('click', onSmallPictureClick);
     });
 
     buttonShowComments.addEventListener('click', onShowCommentsClick);
   };
-
   return onShowBigPictures;
 };
 
@@ -115,7 +112,6 @@ const onCloseBigPhoto = () => {
   });
 
   document.addEventListener('keydown', (evt) => {
-
     if(evt.key === 'Escape') {
       evt.preventDefault();
       BUTTON_ADD_COMMENTS.classList.remove('hidden');
