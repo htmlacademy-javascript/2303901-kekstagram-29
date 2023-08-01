@@ -1,4 +1,5 @@
 const START_INDEX_COMMENTS = 0;
+const VALUE_SHOWING_COMMENTS = 5;
 const allCommentsForBigPicture = document.querySelector('.social__comments');
 
 const createBlockComment = ({avatar, message, name}) => {
@@ -37,7 +38,7 @@ const createCounter = () => {
   };
 
   const showFiveComments = (commentsToPhoto) => {
-    countShowComments += 5;
+    countShowComments += VALUE_SHOWING_COMMENTS;
     allCommentsForBigPicture.innerHTML = '';
     addIncomingComments(commentsToPhoto.slice(START_INDEX_COMMENTS, countShowComments));
   };

@@ -49,21 +49,24 @@ const listenCloseBigPicture = (...closingCallbacks) => {
   const buttonCloseBigPicture = document.querySelector('.big-picture__cancel');
   const modalOpen = document.querySelector('body');
 
-  const onClose = () => {
+  function onClose() {
     buttonAddComments.classList.remove('hidden');
     closeCountComments(COMMENTS_COUNTER_VALUES);
     modalOpen.classList.remove('modal-open');
     bigPicture.classList.add('hidden');
     closingCallbacks?.map((callback) => callback?.());
-  };
+    buttonCloseBigPicture.removeEventListener('click', onClose);
+    document.removeEventListener('keydown', onCloseEsc);
+  }
 
-  buttonCloseBigPicture.addEventListener('click', onClose);
-
-  document.addEventListener('keydown', (evt) => {
-    if(evt.key === 'Escape') {
+  function onCloseEsc(evt) {
+    if (evt.key === 'Escape') {
       onClose();
     }
-  });
+  }
+
+  buttonCloseBigPicture.addEventListener('click', onClose);
+  document.addEventListener('keydown', onCloseEsc);
 };
 
 const showBigPicture = (picture) => {
@@ -94,6 +97,8 @@ const setupOnShowBigPicture = () => {
     }
 
     onSmallPictureClick = (evt) => {
+      evt.preventDefault();
+
       const clickedPicture = arrayPhoto.find((element) => element.id === +evt.target.id);
       showBigPicture(clickedPicture);
     };
@@ -109,6 +114,4 @@ const setupOnShowBigPicture = () => {
 
 const handleClickSmallMiniature = setupOnShowBigPicture();
 
-
 export {handleClickSmallMiniature};
-

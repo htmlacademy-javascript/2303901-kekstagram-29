@@ -18,7 +18,7 @@ const createBlockPhoto = ({url, description, likes, comments, id}) => {
   return copyTemplateTeg;
 };
 
-const paintAllPictures = (valuePhoto) => {
+const paintAllPhotos = (valuePhoto) => {
   const addToHtml = document.querySelector('.pictures');
   const fragmentPhoto = document.createDocumentFragment();
 
@@ -30,4 +30,4 @@ const paintAllPictures = (valuePhoto) => {
   handleClickSmallMiniature(valuePhoto);
 };
 
-export{paintAllPictures};
+export{paintAllPhotos};
