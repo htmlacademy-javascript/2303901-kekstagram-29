@@ -3,7 +3,7 @@ const addressImage = document.querySelector('.img-upload__preview').querySelecto
 const backgroundImageFilters = document.querySelectorAll('.effects__preview');
 const FILE_TYPES = ['.jpg', '.jpeg', '.png'];
 
-const uploadedImage = () => {
+const onUploadedImage = () => {
   const file = inputLoadPicture.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -17,5 +17,5 @@ const uploadedImage = () => {
   }
 };
 
-inputLoadPicture.addEventListener('change', uploadedImage);
+inputLoadPicture.addEventListener('change', onUploadedImage);
 

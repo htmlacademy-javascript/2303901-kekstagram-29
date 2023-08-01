@@ -31,5 +31,3 @@ scaleUpButton.addEventListener('click', () => {
     updateScale(currentScale);
   }
 });
-
-

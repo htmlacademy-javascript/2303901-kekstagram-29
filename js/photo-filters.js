@@ -1,6 +1,5 @@
-
 import {getRandomInteger, debounce} from './util.js';
-import {paintAllPictures} from './thumbnail.js';
+import {paintAllPhotos} from './thumbnail.js';
 
 const TIME_OUT_DELAY = 500;
 const VALUE_RANDOM_PHOTO = 10;
@@ -15,7 +14,7 @@ const filterDefault = (photos) => {
     element.remove();
   });
 
-  paintAllPictures(photos);
+  paintAllPhotos(photos);
 };
 
 const onAddFilterDefault = (photos) => {
@@ -59,7 +58,7 @@ const onAddFilterRandom = (photos) => {
     element.remove();
   });
 
-  paintAllPictures(selectedPhotos);
+  paintAllPhotos(selectedPhotos);
 };
 
 const onButtonActiveRandom = () => {
@@ -76,7 +75,7 @@ const filterDiscussed = (photos) => {
     element.remove();
   });
 
-  paintAllPictures(sortedPictures);
+  paintAllPhotos(sortedPictures);
 };
 
 const onAddFilterDiscussed = (photos) => {

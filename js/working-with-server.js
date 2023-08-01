@@ -1,7 +1,5 @@
-
 import {onFormClose, resetPristine, onFormCloseEscape} from './validation-photo-description.js';
-import {addSortToPhotos} from './photo-filters.js';
-import {paintAllPictures} from './thumbnail.js';
+import {postPicturesFromServer} from './main.js';
 
 const buttonSendForm = document.querySelector('.img-upload__submit');
 const errorMessageTemplate = document.querySelector('#error').content;
@@ -20,52 +18,52 @@ const showErrorMessage = () => {
   document.removeEventListener('keydown', onFormCloseEscape);
 };
 
-const closeErrorWindowButton = () => {
+const onCloseErrorWindowButton = () => {
   errorMessage.remove();
   document.addEventListener('keydown', onFormCloseEscape);
 };
 
-const closeErrorWindowEck = (evt) => {
+const onCloseErrorWindowEck = (evt) => {
   if (evt.key === 'Escape') {
-    closeErrorWindowButton(evt);
+    onCloseErrorWindowButton(evt);
   }
 };
 
-const closeErrorWindowClick = (evt) => {
+const onCloseErrorWindowClick = (evt) => {
   if(placeClickToClose.contains(evt.target)) {
     return;
   }
-  closeErrorWindowButton(evt);
+  onCloseErrorWindowButton(evt);
 };
 
-errorMessage.addEventListener('click', closeErrorWindowClick);
-errorButton.addEventListener('click', closeErrorWindowButton);
-document.addEventListener('keydown', closeErrorWindowEck);
+errorMessage.addEventListener('click', onCloseErrorWindowClick);
+errorButton.addEventListener('click', onCloseErrorWindowButton);
+document.addEventListener('keydown', onCloseErrorWindowEck);
 
 const showSuccessWindow = () => {
   tagBody.insertAdjacentElement('beforeend', successfulSendMessage);
 };
 
-const closeSuccessWindow = () => {
+const onCloseSuccessWindow = () => {
   successfulSendMessage.remove();
 };
 
-const closeSuccessWindowEck = (evt) => {
+const onCloseSuccessWindowEck = (evt) => {
   if (evt.key === 'Escape' && successfulSendMessage.classList.contains('success')) {
-    closeSuccessWindow();
+    onCloseSuccessWindow();
   }
 };
 
-const closeSuccessWindowClick = (evt) => {
+const onCloseSuccessWindowClick = (evt) => {
   if(placeClickToSuccessInner.contains(evt.target)){
     return;
   }
-  closeSuccessWindow(evt);
+  onCloseSuccessWindow(evt);
 };
 
-buttonCloseSuccess.addEventListener('click', closeSuccessWindow);
-successfulSendMessage.addEventListener('click', closeSuccessWindowClick);
-document.addEventListener('keydown', closeSuccessWindowEck);
+buttonCloseSuccess.addEventListener('click', onCloseSuccessWindow);
+successfulSendMessage.addEventListener('click', onCloseSuccessWindowClick);
+document.addEventListener('keydown', onCloseSuccessWindowEck);
 
 const messageErrorDownload = () => {
   const messageFallServer = document.createElement('div');
@@ -91,8 +89,7 @@ const getPicturesFromServer = () => {
       throw new Error('Network response was not ok.');
     })
     .then((datesPictures) => {
-      paintAllPictures(datesPictures);
-      addSortToPhotos(datesPictures);
+      postPicturesFromServer(datesPictures);
     })
     .then(() => {
       showFilters.classList.remove('img-filters--inactive');
@@ -101,6 +98,8 @@ const getPicturesFromServer = () => {
       messageErrorDownload();
     });
 };
+
+getPicturesFromServer();
 
 const postDatesFormToServer = (formData) => {
   fetch('https://29.javascript.pages.academy/kekstagram', {

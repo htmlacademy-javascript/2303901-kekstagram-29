@@ -1,9 +1,14 @@
 import './effects-photo.js';
 import './validation-photo-description.js';
 import './zoom-picture.js';
-import './photo-filters.js';
+
 import './load-picture.js';
-import {getPicturesFromServer} from './working-with-server.js';
+import {addSortToPhotos} from './photo-filters.js';
+import {paintAllPhotos} from './thumbnail.js';
 
-getPicturesFromServer();
+const postPicturesFromServer = (datesPictures) => {
+  paintAllPhotos(datesPictures);
+  addSortToPhotos(datesPictures);
+};
 
+export{postPicturesFromServer};

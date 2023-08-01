@@ -3,7 +3,9 @@ import {postDatesFormToServer} from './working-with-server.js';
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_MAX_LENGTH = 20;
 const HASHTAGS_MAX_COUNT = 5;
-const FILES_LENGTH = 0;
+const START_LENGTH = 0;
+const DESCRIPTION_MAX_LENGTH = 140;
+const DESCRIPTION_MIN_LENGTH = 1;
 const fileInput = document.querySelector('.img-upload__input');
 const formDownloadPicture = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -40,8 +42,7 @@ const validateHashtagsLength = (value) => {
   return (hashtags.every((hashtag) => hashtag.length <= HASHTAG_MAX_LENGTH));
 };
 
-pristine.addValidator(inputHashTeg, validateHashtagsLength, 'Длина хэштега не может превышать 20 символов.');
-
+pristine.addValidator(inputHashTeg, validateHashtagsLength, `Длина хэштега не может превышать ${HASHTAG_MAX_LENGTH} символов.`);
 
 const validateHashtagsUnique = (value) => {
   const hashtags = value.trim().split(/\s+/).filter((hashtag) => hashtag !== '').map((hashtag) => hashtag.toLowerCase());
@@ -58,24 +59,16 @@ const validateHashtagsCount = (value) => {
   return (value === '' || hashtags.length <= HASHTAGS_MAX_COUNT);
 };
 
-pristine.addValidator(inputHashTeg, validateHashtagsCount, 'Максимальное количество хэш тэгов 5');
+pristine.addValidator(inputHashTeg, validateHashtagsCount, `Максимальное количество хэш тэгов ${HASHTAGS_MAX_COUNT}`);
 
-const valueInputComment = (value) => {
-  const MessageTerms = {
-    START: 0,
-    MIN: 1,
-    MAX: 140,
-  };
+const valueInputComment = (value) => (value.length === START_LENGTH || value.length > DESCRIPTION_MIN_LENGTH && value.length < DESCRIPTION_MAX_LENGTH);
 
-  return (value.length === MessageTerms.START || value.length > MessageTerms.MIN && value.length < MessageTerms.MAX);
-};
-
-pristine.addValidator(inputComment, valueInputComment , 'не меньше двух не больше 140');
+pristine.addValidator(inputComment, valueInputComment , `не меньше двух не больше ${DESCRIPTION_MAX_LENGTH} символов`);
 
 const onFileChange = (evt) => {
   evt.preventDefault();
 
-  if(fileInput.value.length > FILES_LENGTH) {
+  if(fileInput.value.length > START_LENGTH) {
     overlay.classList.remove('hidden');
     body.classList.add('modal-open');
   }
@@ -128,4 +121,3 @@ inputComment.addEventListener('focus', onFocus);
 inputComment.addEventListener('blur', onFocusOut);
 
 export {onFormClose, resetPristine, onFormCloseEscape};
-
